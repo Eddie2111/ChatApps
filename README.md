@@ -17,3 +17,23 @@
 
 ### Dev Tools
 - Docker
+
+### progress
+## app
+- login page added
+- signup page added
+- chat page added
+- nextUI added
+- navbar added
+- authContext added
+## backend
+- socket io added
+- chat schema built
+- cors added
+- chat rooms created
+## auth
+- express created
+- prisma initated : mysql
+- User, Group models added
+- model functions added
+- validation functions added

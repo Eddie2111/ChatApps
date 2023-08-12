@@ -1,0 +1,14 @@
+# Ignore.env file
+.env
+
+# Ignore node_modules folder in app folder
+app/node_modules/
+app/.env
+
+# Ignore node_modules folder in backend folder
+backend/node_modules/
+backend/.env
+
+# Ignore node_modules folder in auth folder
+auth/node_modules/
+auth/.env
