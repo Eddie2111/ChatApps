@@ -18,6 +18,7 @@ import Signup from './views/signup';
 
 // component imports
 import AppBar from './components/main/Navbar';
+import Footer from './components/main/Footer';
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,7 @@ root.render(
       <NextUIProvider>
         <AppBar />
         <RouterProvider router={router} />
+        <Footer />
       </NextUIProvider>
     </AuthProvider>
   </React.StrictMode>

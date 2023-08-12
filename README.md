@@ -25,12 +25,15 @@
 - chat page added
 - nextUI added
 - navbar added
+- footer added
 - authContext added
+
 ## backend
 - socket io added
 - chat schema built
 - cors added
 - chat rooms created
+
 ## auth
 - express created
 - prisma initated : mysql
