@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { socket } from './socket';
 import { ConnectionState } from '../../components/ConnectionState';
 import { ConnectionManager } from '../../components/ConnectionManager';
-import { MyForm } from '../../components/MyForm';
-import { Events } from '../../components/Events';
 
 const Chat = React.lazy(() => import('../../components/chat'));
 
@@ -23,7 +21,6 @@ export default function App() {
     function onFooEvent(value) {
       setFooEvents((previous) => [...previous, value]);
     }
-
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);
     socket.on('foo', onFooEvent);
@@ -37,9 +34,7 @@ export default function App() {
   return (
     <div className="App">
       <ConnectionState isConnected={isConnected} />
-      <Events events={fooEvents} />
       <ConnectionManager />
-      <MyForm />
       <Chat />
     </div>
   );

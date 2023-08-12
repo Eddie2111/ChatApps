@@ -10,12 +10,17 @@ const Chat = () => {
   async function sendMessage(username, message) {
     await socket.emit('chat message', { user: username, message });
   }
-
+  // get the messages from the server
+  useEffect(() => {
+    socket.on('chat message', (msg) => {
+      setMessages([...messages, msg]);
+    });
+  }, [messages]);
   const setShow = useMemo(() => {
     return () => {
       console.log(message);
       if (message !== null) sendMessage(username, message);
-      setMessages([...messages, { user: username, message: message }]);
+      //setMessages([...messages, { user: username, message: message }]);
       setMessage('');
     };
   }, [message, messages, username]);

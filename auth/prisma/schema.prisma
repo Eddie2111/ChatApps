@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @map("user_id") @db.VarChar(36) 
+  image     String?  @db.VarChar(255)
+  email     String   @unique @db.VarChar(35)
+  name      String  @db.VarChar(35)
+  password  String   @db.VarChar(130) 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  groups    Group[]  @relation("UserToGroup")
+}
+
+model Group {
+  id        String   @id @map("group_id") @db.VarChar(36)
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  users     User[]   @relation("UserToGroup")
+}

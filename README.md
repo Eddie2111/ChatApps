@@ -1,5 +1,19 @@
 # ChatApps
 
-### Frontend
+### Frontend:
+- React:18
+- tailwindcss
+- Socket.io-client
+
 ### Backend
-### Database
+- Auth :
+        - nodejs
+        - express
+        - prisma: mysql
+- backend :
+        - nodejs
+        - express: socket.io
+        - mongoose: mongo
+
+### Dev Tools
+- Docker
