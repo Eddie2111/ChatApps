@@ -1,18 +1,18 @@
-import React from 'react';
-import { useState, useEffect, useMemo } from 'react';
-import { socket } from '../views/app/socket';
+import React from "react";
+import { useState, useEffect, useMemo } from "react";
+import { socket } from "../views/app/socket";
 
 const Chat = () => {
   const [message, setMessage] = useState(null);
   const [messages, setMessages] = useState([]);
-  const username = 'test';
+  const username = "test";
 
   async function sendMessage(username, message) {
-    await socket.emit('chat message', { user: username, message });
+    await socket.emit("chat message", { user: username, message });
   }
   // get the messages from the server
   useEffect(() => {
-    socket.on('chat message', (msg) => {
+    socket.on("chat message", (msg) => {
       setMessages([...messages, msg]);
     });
   }, [messages]);
@@ -20,8 +20,8 @@ const Chat = () => {
     return () => {
       console.log(message);
       if (message !== null) sendMessage(username, message);
-      //setMessages([...messages, { user: username, message: message }]);
-      setMessage('');
+      // setMessages([...messages, { user: username, message: message }]);
+      setMessage("");
     };
   }, [message, messages, username]);
 
@@ -49,7 +49,7 @@ const Chat = () => {
         />
         <button
           id="button"
-          defaultValue={' '}
+          defaultValue={" "}
           onClick={setShow}
           className="h-8 w-20 p-1 rounded-md bg-blue-500 text-white focus:outline-none focus:bg-blue-600"
         >

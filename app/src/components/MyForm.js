@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { socket } from '../views/app/socket';
+import React, { useState } from "react";
+import { socket } from "../views/app/socket";
 
 export function MyForm() {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   function onSubmit(event) {
     event.preventDefault();
     setIsLoading(true);
 
-    socket.timeout(5000).emit('create-something', value, () => {
+    socket.timeout(5000).emit("create-something", value, () => {
       setIsLoading(false);
     });
   }

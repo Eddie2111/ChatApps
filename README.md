@@ -18,7 +18,11 @@
 ### Dev Tools
 - Docker
 
+### Pending
+- react DND + react dnd backend html
+
 ### progress
+
 ## app
 - login page added
 - signup page added
@@ -26,7 +30,8 @@
 - nextUI added
 - navbar added
 - footer added
-- authContext added
+- authContext added **
+- google eslint added **
 
 ## backend
 - socket io added
