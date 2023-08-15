@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Navbar,
   NavbarBrand,
@@ -9,9 +9,15 @@ import {
   NavbarItem,
   Link,
   Button,
-} from "@nextui-org/react";
-import { AcmeLogo } from "./AcmeLogo.jsx";
-import { motion } from "framer-motion";
+} from '@nextui-org/react';
+import {AcmeLogo} from './AcmeLogo.jsx';
+import {motion} from 'framer-motion';
+
+ /**
+  * @name AppBar
+  * @description The AppBar component is a navigation header that can be used for branding a screen title, or to display a title for a list of contents. It can be used to navigate between screens of major and equal importance.
+  * @return {jsx}
+  */
 
 export default function AppBar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);

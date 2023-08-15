@@ -1,7 +1,10 @@
 import React from "react";
+import axios from "axios";
+
 import { Input, Button } from "@nextui-org/react";
 import { useAuth } from "../../context/AuthContext";
 import { motion } from "framer-motion";
+import { LoginValidation } from "../../validations/loginValidation";
 
 export default function Login() {
   const [email, setEmail] = React.useState("");
@@ -15,8 +18,28 @@ export default function Login() {
       console.log("No user");
     }
   }, [user]);
+
   const SubmitHandle = async () => {
-    console.log(email, password);
+    //console.log(email, password);
+    const userData = {
+      email,
+      password,
+    };
+    const errors = {}; //await LoginValidation(userData);
+    console.log(errors)
+    if (errors?.errors?.email){
+      alert(errors?.errors?.email)
+    }
+    else if (errors?.errors?.password){
+      alert(errors?.errors?.password)
+    }
+    else {
+      
+      await axios.post("http://localhost:3100/login", userData)
+      .then((res) => { console.log(res.data) } )
+      .catch((err) => { console.log(err) } )
+      //login(userData);
+    }
     // put it inside your axios.then statement → login(userData);
   };
   return (

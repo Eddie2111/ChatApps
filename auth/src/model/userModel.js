@@ -3,79 +3,122 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 async function createAccount(data) {
-    const user = await prisma.User.create({
-        data: {
-            id: data.id,
-            password: data.password,
-            email: data.email,
-            name: data.name,
-        },
-    })
-    return user;
+    try {
+        const user = await prisma.User.create({
+            data: {
+                id: data.id,
+                password: data.password,
+                email: data.email,
+                name: data.name,
+            },
+        })
+        return user;
+    } catch (error) {
+        console.log(error)
+    }
 }
 async function findUserByEmail(email) {
-    const user = await prisma.User.findUnique({
-        where: {
-            email: email,
-        },
-    })
-    return user;
+try {
+        const user = await prisma.User.findUnique({
+            where: {
+                email: email,
+            },
+        })
+        return user;
+} catch (error) {
+    console.log(error)
+}
 }
 async function findUserById(id) {
-    const user = await prisma.User.findUnique({
-        where: {
-            id: id,
-        },
-    })
-    return user;
+try {
+        const user = await prisma.User.findUnique({
+            where: {
+                id: id,
+            },
+        })
+        return user;
+} catch (error) {
+    
+}
 }
 async function findUserByName(name) {
-    const user = await prisma.User.findUnique({
-        where: {
-            name: name,
-        },
-    })
-    return user;
+try {
+        const user = await prisma.User.findUnique({
+            where: {
+                name: name,
+            },
+        })
+        return user;
+} catch (error) {
+    
+}
 }
 async function findUserByGroup(group) {
-    const user = await prisma.User.findMany({
-        where: {
-            group: group,
-        },
-    })
-    return user;
+try {
+        const user = await prisma.User.findMany({
+            where: {
+                group: group,
+            },
+        })
+        return user;
+} catch (error) {
+    
+}
 }
 async function findUserByGroupAndName(group, name) {
-    const user = await prisma.User.findMany({
-        where: {
-            group: group,
-            name: name,
-        },
-    })
-    return user;
+try {
+        const user = await prisma.User.findMany({
+            where: {
+                group: group,
+                name: name,
+            },
+        })
+        return user;
+} catch (error) {
+    
+}
 }
 async function updateUser(data) {
-    const user = await prisma.User.update({
-        where: {
-            id: data.id,
-        },
-        data: {
-            password: data.password,
-            email: data.email,
-            name: data.name,
-        },
-    })
-    return user;
+try {
+        const user = await prisma.User.update({
+            where: {
+                id: data.id,
+            },
+            data: {
+                password: data.password,
+                email: data.email,
+                name: data.name,
+            },
+        })
+        return user;
+} catch (error) {
+    
+}
 }
 async function deleteUser(id) {
-    const user = await prisma.User.delete({
-        where: {
-            id: id,
-        },
-    })
-    return user;
+try {
+        const user = await prisma.User.delete({
+            where: {
+                id: id,
+            },
+        })
+        return user;
+} catch (error) {
+    
 }
-
+}
+async function deleteUserByEmail(email) {
+try {
+        const user = await prisma.User.delete({
+            where: {
+                email: email,
+            },
+        })
+        return user;
+} catch (error) {
+    
+}
+}
 module.exports = {
     createAccount,
     findUserByEmail,
@@ -85,6 +128,7 @@ module.exports = {
     findUserByGroupAndName,
     updateUser,
     deleteUser,
+    deleteUserByEmail,
 }
 
 // main()

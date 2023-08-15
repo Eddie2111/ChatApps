@@ -1,6 +1,10 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React from 'react';
+import {motion} from 'framer-motion';
 
+ /**
+ * This is the footer component
+ * @returns {JSX.Element}
+ */
 export default function Footer() {
   return (
     <motion.div

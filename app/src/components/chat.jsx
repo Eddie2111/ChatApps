@@ -1,18 +1,28 @@
-import React from "react";
-import { useState, useEffect, useMemo } from "react";
-import { socket } from "../views/app/socket";
+import React from 'react';
+import {useState, useEffect, useMemo} from 'react';
+import {socket} from '../views/app/socket';
 
+/**
+ * This is a chat component
+ * @return {JSX.Element}
+ */
 const Chat = () => {
   const [message, setMessage] = useState(null);
   const [messages, setMessages] = useState([]);
-  const username = "test";
+  const username = 'test';
 
+  /**
+   * This function sends a message to the server
+   * @param {string} message
+   * @param {string} username
+   * @return {Promise<void>}
+   */
   async function sendMessage(username, message) {
-    await socket.emit("chat message", { user: username, message });
+    await socket.emit('chat message', {user: username, message});
   }
   // get the messages from the server
   useEffect(() => {
-    socket.on("chat message", (msg) => {
+    socket.on('chat message', (msg) => {
       setMessages([...messages, msg]);
     });
   }, [messages]);

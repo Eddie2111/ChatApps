@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 
 export default function Signup() {
   const [name, setName] = React.useState("");
@@ -6,6 +7,12 @@ export default function Signup() {
   const [password, setPassword] = React.useState("");
   const SubmitHandle = async () => {
     console.log(name, email, password);
+
+    await axios.post("http://localhost:3100/signup", {
+      name: name, email: email, password: password 
+    })
+    .then((res) => { console.log(res.data) } ).catch((err) => { console.log(err) })
+    
   };
   return (
     <section className="bg-gray-50">

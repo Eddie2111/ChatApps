@@ -1,11 +1,12 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-
+const cookieparser = require('cookie-parser');
 const { corsOptions } = require('./config/corsOptions');
 
 // middleware
 app.use(cors(corsOptions));
+app.use(cookieparser());
 require('dotenv').config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
