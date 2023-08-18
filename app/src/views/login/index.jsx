@@ -35,8 +35,11 @@ export default function Login() {
     }
     else {
       
-      await axios.post("http://localhost:3100/login", userData)
-      .then((res) => { console.log(res.data) } )
+      await axios.post("http://localhost:3100/login", userData, {withCredentials:true})
+      .then((res) => { 
+        if(res.data.token) window.location.href="/chat"
+        else return alert('no user found')
+       } )
       .catch((err) => { console.log(err) } )
       //login(userData);
     }
