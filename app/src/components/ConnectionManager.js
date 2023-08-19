@@ -1,5 +1,5 @@
 import React from 'react';
-import {socket} from '../views/app/socket';
+import {socket} from '../views/chat/socket';
 /**
  * Component responsible for managing connection to the socket server.
  * @return {JSX} Rendered component.

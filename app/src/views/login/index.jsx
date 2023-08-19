@@ -5,7 +5,10 @@ import { Input, Button } from "@nextui-org/react";
 import { useAuth } from "../../context/AuthContext";
 import { motion } from "framer-motion";
 import { LoginValidation } from "../../validations/loginValidation";
-
+/**
+ * This is a login component
+ * @return {JSX.Element}
+ */
 export default function Login() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -19,6 +22,13 @@ export default function Login() {
     }
   }, [user]);
 
+  /**
+   * This function handles the submit
+   * @param {string} email
+   * @param {string} password
+   * @requires LoginValidation, credentials
+   * @return {Promise<void>}
+   */
   const SubmitHandle = async () => {
     //console.log(email, password);
     const userData = {
@@ -34,10 +44,12 @@ export default function Login() {
       alert(errors?.errors?.password)
     }
     else {
-      
       await axios.post("http://localhost:3100/login", userData, {withCredentials:true})
       .then((res) => { 
-        if(res.data.token) window.location.href="/chat"
+        if(res.data.token) {
+          login(res.data.token);
+          window.location.href="/chat"
+        }
         else return alert('no user found')
        } )
       .catch((err) => { console.log(err) } )

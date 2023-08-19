@@ -11,7 +11,7 @@ import { NextUIProvider } from "@nextui-org/react";
 import { AuthProvider } from "./context/AuthContext";
 
 // page imports
-import App from "./views/app";
+import ChatPage from "./views/chat";
 import Home from "./views/home";
 import Login from "./views/login";
 import Signup from "./views/signup";
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/chat",
-    element: <App />,
+    element: <ChatPage />,
   },
   {
     path: "/signup",

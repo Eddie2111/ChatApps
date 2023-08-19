@@ -1,20 +1,26 @@
 import React from "react";
 import { useAuth } from "../../context/AuthContext";
 import { Button } from "@nextui-org/react";
-
+import Notifications from "../../components/notification";
 export default function Home() {
   const { user, login, logout } = useAuth();
-  React.useEffect(() => {
-    if (user) {
-      // const {id, username} = user;
-    } else {
-      console.log("No user");
-      window.location.href = "/login";
-    }
-  }, [user]);
+  /**
+   * This function handles the authentication
+   * @param {any} User
+   * @return {Promise<void>}
+   */
+  // React.useEffect(() => {
+  //   if (user) {
+  //     // const {id, username} = user;
+  //   } else {
+  //     console.log("No user");
+  //     window.location.href = "/login";
+  //   }
+  // }, [user]);
   return (
     <div>
       Home
+      <Notifications />
       {user ? (
         <Button color="primary" onClick={logout}>
           Logout

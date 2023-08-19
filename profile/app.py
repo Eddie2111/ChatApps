@@ -1,42 +1,14 @@
-## setup a basic template for fastapi with one get and one post request endpoint
-## to run: uvicorn app:app --reload
-## to run with gunicorn: gunicorn -w 4 -k uvicorn.workers.UvicornWorker app:app
-
-from fastapi import FastAPI
-from pydantic import BaseModel
-from typing import Optional
+from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-## connecting mongodb
-from pymongo import MongoClient
+
+from lib.Mongo_Conn import connect_mongo
+from config.CorsData import origins
+from Types.StatusPost_Type import StatusPost
+
 from bson.objectid import ObjectId
-import json
-import os
-import datetime
-import time
-import random
-import string
-import requests
-import re
-import urllib.parse
-import base64
-import hashlib
+import pprint
 
 app = FastAPI()
-
-## adding cors
-origins = [
-    "http://localhost",
-    "http://localhost:8080",
-    "http://localhost:8000",
-    "http://localhost:3000",
-    "http://localhost:5000",
-]
-## connecting mongodb
-client = MongoClient('mongodb://localhost:27016/')
-db = client['chat']
-collection = db['Posts']
-
-
 
 app.add_middleware(
     CORSMiddleware,
@@ -46,33 +18,52 @@ app.add_middleware(
     allow_headers=["*"], ## allow all headers
 )
 
-
-class Item(BaseModel):
-    name: str
-    price: float
-    is_offer: Optional[bool] = None
-
-class StatusPost(BaseModel):
-    serial: str
-    post: str
-    date: str
-    ## optional fields
-    feeling: Optional[str] = None
-    location: Optional[str] = None
-    tag: Optional[str] = None
-
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None):
-    return {"item_id": item_id, "q": q}
+## post request
+"""
+@params: item: Item
+@params: file: UploadFile = File(...)
+@return: get: Items[]
+@return: get: FindOne: Items
+@return: post: Item
+"""
 
 @app.post("/status/command={command}")
 async def statusPost(status_post: StatusPost, command: str):
     print(command)
-    return status_post
+    # for post
+    if command == "post":
+        collection = connect_mongo()
+        post = {
+            "serial": status_post.serial, 
+            "post": status_post.post,
+            "date": status_post.date, 
+            "feeling": status_post.feeling, 
+            "location": status_post.location, 
+            "tag": status_post.tag}
+        collection.insert_one(post)
+        return status_post
+    # for get
+    elif command == "get":
+        collection = connect_mongo()
+        # only get serial, post, data
+        posts = []
+        for post in collection.find({}, {"_id": 0, "serial": 1, "post": 1, "date": 1}):
+            posts.append(post)
+        return posts
+    
+## Whole request structure
+"""
+routes: /status/command={command}
+controller: validation(statusPost)
+model: CRUD(StatusPost): True/False
+routes -> controller -> model -> controller -> routes
+"""
+
+print(connect_mongo())
 
 
 ## to run: uvicorn app:app --reload

@@ -1,6 +1,6 @@
 import React from 'react';
 import {useState, useEffect, useMemo} from 'react';
-import {socket} from '../views/app/socket';
+import {socket} from '../views/chat/socket';
 
 /**
  * This is a chat component

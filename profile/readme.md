@@ -11,7 +11,11 @@
 - data types
 - get and post methods
 - cors set up
+- mongoDB integration : create, read
+- singleton connection: Mongo, Kafka
 
 ### required
-- mongoDB integration
+- file handling route
+- file handling and data handling route endpoint
 - kafka setup
+- file splitting
