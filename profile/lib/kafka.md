@@ -1,3 +1,4 @@
+https://www.youtube.com/watch?v=WnlX7w4lHvM
 ### docker pull bitnami/kafka ###
 
 Apache Kafka is a distributed streaming platform used for building real-time applications
