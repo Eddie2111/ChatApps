@@ -70,3 +70,6 @@
 - cors set up
 - mongoDB integration : create, read
 - singleton connection: Mongo, Kafka
+
+
+
