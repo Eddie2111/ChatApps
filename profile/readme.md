@@ -1,5 +1,8 @@
 # profile system using fastapi: python
 
+## Start the server
+uvicorn app:app --reload --port 8000
+
 ### features
 - status upload and update mongoDB
 - image upload and update mongoDB

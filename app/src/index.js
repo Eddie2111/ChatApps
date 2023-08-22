@@ -15,6 +15,7 @@ import ChatPage from "./views/chat";
 import Home from "./views/home";
 import Login from "./views/login";
 import Signup from "./views/signup";
+import Profile from "./views/profile";
 
 // component imports
 import AppBar from "./components/main/Navbar";
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
     path: "/signup",
     element: <Signup />,
   },
+  {
+    path: "/profile",
+    element: <Profile />
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
