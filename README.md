@@ -5,6 +5,7 @@
 ## features gained
 - Authentication
 - chatting system
+- rate limiting
 
 ## features required
 - post creation
