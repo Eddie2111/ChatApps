@@ -15,3 +15,5 @@ class StatusPost(BaseModel):
     feeling: Optional[str] = None
     location: Optional[str] = None
     tag: Optional[str] = None
+class Cookie(BaseModel):
+    token: str

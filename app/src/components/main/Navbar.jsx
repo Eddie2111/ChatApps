@@ -12,16 +12,17 @@ import {
 } from '@nextui-org/react';
 import {AcmeLogo} from './AcmeLogo.jsx';
 import {motion} from 'framer-motion';
+import {useAuth} from '../../context/AuthContext';
 
  /**
   * @name AppBar
   * @description The AppBar component is a navigation header that can be used for branding a screen title, or to display a title for a list of contents. It can be used to navigate between screens of major and equal importance.
   * @return {jsx}
   */
-
 export default function AppBar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
+  const { user,logout } = useAuth();
+  console.log(user)
   const menuItems = [
     "Profile",
     "Dashboard",
@@ -65,31 +66,53 @@ export default function AppBar() {
             <p className="font-bold text-inherit">ACME</p>
           </NavbarBrand>
           <NavbarItem>
-            <Link color="foreground" href="#">
-              Features
+            <Link color="foreground" href="/">
+              Home
             </Link>
           </NavbarItem>
           <NavbarItem isActive>
-            <Link href="#" aria-current="page">
-              Customers
+            <Link href="/chat" aria-current="page">
+              Chat
             </Link>
           </NavbarItem>
           <NavbarItem>
-            <Link color="foreground" href="#">
-              Integrations
+            <Link href="/profile" color="foreground" aria-current="page">
+              Profile
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link color="foreground" href="/settings">
+              Settings
             </Link>
           </NavbarItem>
         </NavbarContent>
 
         <NavbarContent justify="end">
-          <NavbarItem className="hidden lg:flex">
-            <Link href="#">Login</Link>
+          { user ? (
+            <Button
+              auto
+              size="small"
+              color="error"
+              onClick={() => {
+                localStorage.removeItem('token');
+                logout();
+                
+              }}
+            >
+              Log Out
+            </Button>
+          ) : (
+            <>
+            <NavbarItem className="hidden lg:flex">
+            <Link href="/login">Login</Link>
           </NavbarItem>
           <NavbarItem>
-            <Button as={Link} color="warning" href="#" variant="flat">
+            <Button as={Link} color="warning" href="/signup" variant="flat">
               Sign Up
             </Button>
           </NavbarItem>
+          </>
+          )}
         </NavbarContent>
 
         <NavbarMenu>

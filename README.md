@@ -1,21 +1,27 @@
 # ChatApps
 
 ## features gained
+
 - Authentication
 - chatting system
 
 ## features required
+
+- session management accross all services
 - post creation
 - friends and connection
 - friends post show up
+- upgrade frontend to next13 app
 
-### Frontend:
+### Frontend
+
 - React:18
 - tailwindcss
 - nextUI
 - Socket.io-client
 
 ### Backend
+
 - Auth :
         - nodejs
         - express
@@ -31,17 +37,20 @@
         - [Zookeeper : Kafka]
 
 ### Dev Tools
+
 - Docker
 - mysqlDB
 - mongoDB
 - ZooKeeper : Kafka
 
 ### Pending
+
 - react DND + react dnd backend html
 
 ### progress
 
 ## app
+
 - login page added
 - signup page added
 - chat page added
@@ -52,6 +61,7 @@
 - google eslint added **
 
 ## backend
+
 - socket io added
 - chat schema built
 - cors added
@@ -65,6 +75,7 @@
 - validation functions added
 
 ## profile
+
 - data types
 - get and post methods
 - cors set up

@@ -11,7 +11,7 @@ export default function Signup() {
     await axios.post("http://localhost:3100/signup", {
       name: name, email: email, password: password 
     })
-    .then((res) => { console.log(res.data) } ).catch((err) => { console.log(err) })
+    .then((res) => { console.log(res.data); alert(res.data.message) } ).catch((err) => { alert('account exists, try loggin in?'); console.log(err) })
     
   };
   return (

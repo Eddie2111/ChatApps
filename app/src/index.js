@@ -9,6 +9,7 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { NextUIProvider } from "@nextui-org/react";
 import { AuthProvider } from "./context/AuthContext";
+import {ThemeProvider as NextThemesProvider} from "next-themes";
 
 // page imports
 import ChatPage from "./views/chat";
@@ -16,6 +17,7 @@ import Home from "./views/home";
 import Login from "./views/login";
 import Signup from "./views/signup";
 import Profile from "./views/profile";
+import Settings from "./views/settings";
 
 // component imports
 import AppBar from "./components/main/Navbar";
@@ -41,6 +43,10 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <Profile />
+  },
+  {
+    path: "/settings",
+    element: <Settings />
   }
 ]);
 
@@ -49,9 +55,11 @@ root.render(
   <React.StrictMode>
     <AuthProvider>
       <NextUIProvider>
-        <AppBar />
-        <RouterProvider router={router} />
-        <Footer />
+        <NextThemesProvider attribute="class" defaultTheme="dark">
+          <AppBar />
+            <RouterProvider router={router} />
+          <Footer />
+        </NextThemesProvider>
       </NextUIProvider>
     </AuthProvider>
   </React.StrictMode>,

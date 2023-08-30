@@ -8,13 +8,14 @@ datasource db {
 }
 
 model User {
-  id        String   @id @map("user_id") @db.VarChar(36) 
-  image     String?  @db.VarChar(255)
+  id        String   @id @map("user_id") @db.VarChar(36)
+  profileImage String? @db.VarChar(255)
+  coverImage String? @db.VarChar(255)
   email     String   @unique @db.VarChar(35)
   name      String  @db.VarChar(35)
-  password  String   @db.VarChar(130) 
+  password  String   @db.VarChar(130)
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime? @updatedAt
   groups    Group[]  @relation("UserToGroup")
 }
 

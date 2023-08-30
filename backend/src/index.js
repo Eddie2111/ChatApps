@@ -2,20 +2,19 @@ const express = require('express');
 const app = express();
 const http = require('http');
 const server = http.createServer(app);
-const { createServer } = require("http");
-const { Server } = require("socket.io");
+const {createServer} = require("http");
+const {Server} = require("socket.io");
 const httpServer = createServer();
 const cors = require('cors');
-const { connectDB } = require('./lib/mongo');
-
-const { corsOptions } = require('./config/corsOption');
-app.use(cors(corsOptions));
+const {connectDB} = require('./lib/mongo');
+const {rateLimiter} = require('./config/rateLimit');
+const {corsOptions} = require('./config/corsOption');
 const io = new Server(httpServer, { cors: corsOptions });
-
-require('dotenv').config();
 const port = process.env.PORT || 3200;
 
-
+app.use(cors(corsOptions));
+app.use(rateLimiter);
+require('dotenv').config();
 
 io.on("connection", (socket) => {
     console.log("a user connected");

@@ -4,7 +4,8 @@ import axios from "axios";
 import { Input, Button } from "@nextui-org/react";
 import { useAuth } from "../../context/AuthContext";
 import { motion } from "framer-motion";
-import { LoginValidation } from "../../validations/loginValidation";
+//import { LoginValidation } from "../../validations/loginValidation";
+
 /**
  * This is a login component
  * @return {JSX.Element}
@@ -12,7 +13,8 @@ import { LoginValidation } from "../../validations/loginValidation";
 export default function Login() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const { user,login } = useAuth();
+  const { user,login, getLogin } = useAuth();
+
   React.useEffect(() => {
     if (user) {
       // const {id, username} = user;
@@ -21,7 +23,10 @@ export default function Login() {
       console.log("No user");
     }
   }, [user]);
-
+  
+  const Test = async() => {
+    await getLogin();
+  }
   /**
    * This function handles the submit
    * @param {string} email
@@ -45,10 +50,11 @@ export default function Login() {
     }
     else {
       await axios.post("http://localhost:3100/login", userData, {withCredentials:true})
-      .then((res) => { 
+      .then((res) => {
         if(res.data.token) {
           login(res.data.token);
-          window.location.href="/chat"
+          console.log(res.data.token);
+          //window.location.href="/chat"
         }
         else return alert('no user found')
        } )
@@ -76,7 +82,7 @@ export default function Login() {
           />
           Flowbite
         </a>
-
+    <button onClick={Test}>get user</button>
         <div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
