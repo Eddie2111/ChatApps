@@ -1,7 +1,5 @@
 # ChatApps
 
-
-
 ## features gained
 - Authentication
 - chatting system
