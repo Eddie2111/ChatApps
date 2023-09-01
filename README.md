@@ -2,6 +2,8 @@
 
 ## features gained
 
+- dark mode/light mode added
+- smooth scroll
 - Authentication
 - chatting system
 
@@ -9,6 +11,7 @@
 
 - session management accross all services
 - post creation
+- chatting, profile with identity
 - friends and connection
 - friends post show up
 - upgrade frontend to next13 app
