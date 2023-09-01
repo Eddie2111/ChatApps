@@ -2,8 +2,11 @@ import React from "react";
 import { useAuth } from "../../context/AuthContext";
 import { Button } from "@nextui-org/react";
 import Notifications from "../../components/notification";
+import UserPost from '../../components/posts/userpost';
+import CreatePost from '../../components/posts/createpost';
 export default function Home() {
   const { user, login, logout } = useAuth();
+  const testArray = [1,2,4,6,7,9,41,42,2,865];
   /**
    * This function handles the authentication
    * @param {any} User
@@ -19,6 +22,16 @@ export default function Home() {
   // }, [user]);
   return (
     <div>
+      <div className='flex flex-col justify-center items-center'>
+        <CreatePost />
+        {testArray.map((item, index) => {
+          return <UserPost key={index} />
+        })}
+      </div>
+    </div>
+  );
+}
+/*
       Home
       <Notifications />
       {user ? (
@@ -33,6 +46,4 @@ export default function Home() {
           Login
         </Button>
       )}
-    </div>
-  );
-}
+      */
