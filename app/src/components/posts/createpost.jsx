@@ -1,6 +1,6 @@
 'use client';
 import React from "react";
-import {Card, CardHeader, CardBody, CardFooter, Divider, Link, Image, Textarea, Button} from "@nextui-org/react";
+import {Card, CardHeader, CardBody, CardFooter, Divider, Image, Textarea, Button} from "@nextui-org/react";
 // lazy load the components
 // const Card = React.lazy(() => import("@nextui-org/react").then((mod) => ({ default: mod.Card })));
 // const CardHeader = React.lazy(() => import("@nextui-org/react").then((mod) => ({ default: mod.CardHeader })));
@@ -11,6 +11,29 @@ import {Card, CardHeader, CardBody, CardFooter, Divider, Link, Image, Textarea, 
 // const Image = React.lazy(() => import("@nextui-org/react").then((mod) => ({ default: mod.Image })));
 
 export default function CreatePost() {
+    const [status, setStatus] = React.useState('');
+    const [selectedFile, setSelectedFile] = React.useState(null);
+
+    const handleFileInputChange = (e) => {
+        setSelectedFile(e.target.files[0]);
+    };
+    const PostHandle = async(e) =>{
+        //e.preventDefault();
+        const formData = new FormData();
+        formData.append('serial', '123456789');
+        formData.append('post', 'post_value');
+        formData.append('date', '12-2-2023');
+        formData.append('feeling', 'happy');
+        formData.append('location', 'home');
+        formData.append('tag', '[21,22,23]');
+        const response = await fetch('http://localhost:3500/status/command=post', {
+            method: 'POST',
+            body: formData,
+        });
+        const data = await response.json();
+        console.log(data);
+        console.log(formData.get('image'));
+    }
   return (
     <Card className="max-w-[80%] min-w-[480px] max-h-[400px]">
       <CardHeader className="flex gap-3">
@@ -27,22 +50,31 @@ export default function CreatePost() {
         </div>
       </CardHeader>
       <Divider/>
+      <form onSubmit={PostHandle}>
       <CardBody>
         <Textarea
             placeholder="Enter your description"
             className="w-full"
+            onChange={(e) => setStatus(e.target.value)}
         />
       </CardBody>
       <div className='flex flex-row justify-between'>
             <div className='flex flex-row'>
-                <div className='mx-4 pt-1'>Image</div>
+                <div className='mx-4 pt-1'>
+                    <input type="file"
+                        id="file"
+                        accept=".jpg, .jpeg, .png, .gif"
+                        onChange={handleFileInputChange}
+                    />
+                </div>
                 <div className='mx-4 pt-1'>Location</div>
                 <div className='mx-4 pt-1'>Mood</div>
             </div>
             <div className='flex flex-row pb-2'>
-                <Button color="primary" auto className='mr-4 mb-2'> Post </Button>
+                <Button color="primary" auto className='mr-4 mb-2' onPress={PostHandle}> Post </Button>
             </div>
       </div>
+      </form>
       <Divider/>
       <CardFooter>
 
