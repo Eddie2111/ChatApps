@@ -1,23 +1,26 @@
-<<<<<<< HEAD
 # ChatApps
 
 ## features gained
+
 - Authentication
 - chatting system
 - rate limiting
 
 ## features required
+
 - post creation
 - friends and connection
 - friends post show up
 
 ### Frontend:
+
 - React:18
 - tailwindcss
 - nextUI
 - Socket.io-client
 
 ### Backend
+
 - Auth :
         - nodejs
         - express
@@ -75,7 +78,6 @@
 
 
 
-=======
 # ChatApps
 
 ## features gained
@@ -168,4 +170,3 @@
 - cors set up
 - mongoDB integration : create, read
 - singleton connection: Mongo, Kafka
->>>>>>> dev
