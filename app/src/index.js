@@ -1,19 +1,35 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import App from './views/app';
+// main library imports
+import React from "react";
+import ReactDOM from "react-dom/client";
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <App />,
-  },
-]);
+// style imports
+import { ReactLenis } from '@studio-freight/react-lenis'
+import "./index.css";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+// provider imports
+import { RouterProvider } from "react-router-dom";
+import { NextUIProvider } from "@nextui-org/react";
+import { AuthProvider } from "./context/AuthContext";
+import {ThemeProvider as NextThemesProvider} from "next-themes";
+
+// component imports
+import AppBar from "./components/main/Navbar";
+import Footer from "./components/main/Footer";
+import {router} from "./routes/router";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+    <AuthProvider>
+      <NextUIProvider>
+        <NextThemesProvider attribute="class" defaultTheme="dark">
+          <AppBar />
+            <ReactLenis root>
+              <RouterProvider router={router} />
+            </ReactLenis>
+          <Footer />
+        </NextThemesProvider>
+      </NextUIProvider>
+    </AuthProvider>
+  </React.StrictMode>,
 );
