@@ -1,4 +1,5 @@
 'use client';
+import axios from "axios";
 import React from "react";
 import {Card, CardHeader, CardBody, CardFooter, Divider, Image, Textarea, Button} from "@nextui-org/react";
 // lazy load the components
@@ -19,20 +20,29 @@ export default function CreatePost() {
     };
     const PostHandle = async(e) =>{
         //e.preventDefault();
+        const notformData = {
+            serial: '123456789',
+            user: 'user_value',
+            post: 'post_value',
+            date: '12-2-2023',
+            feeling: 'happy',
+            location: 'home',
+            tag: '[21,22,23]',
+        }
         const formData = new FormData();
         formData.append('serial', '123456789');
-        formData.append('post', 'post_value');
+        formData.append('user', 'user_value');
+        formData.append('post', status);
         formData.append('date', '12-2-2023');
         formData.append('feeling', 'happy');
         formData.append('location', 'home');
         formData.append('tag', '[21,22,23]');
-        const response = await fetch('http://localhost:3500/status/command=post', {
-            method: 'POST',
-            body: formData,
-        });
-        const data = await response.json();
-        console.log(data);
-        console.log(formData.get('image'));
+        formData.append('file', selectedFile);
+        const response = await axios.post(
+            'http://localhost:3500/status/post',
+            formData
+        )
+        console.log(response);
     }
   return (
     <Card className="max-w-[80%] min-w-[480px] max-h-[400px]">

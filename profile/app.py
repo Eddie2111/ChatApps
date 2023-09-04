@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, UploadFile, Request, Depends
+from fastapi import FastAPI, File, UploadFile, Request, Depends, Form
 from fastapi.middleware.cors import CORSMiddleware
 
 from lib.Mongo_Conn import connect_mongo
@@ -41,30 +41,36 @@ def read_root():
 @return: post: Item
 """
 # limiting rules:  ,dependencies=[Depends(RateLimiter(times=2, seconds=5))]
-@app.post("/status/command={command}", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
-async def statusPost(status_post: StatusPost or ' ', command: str):
-    print(command)
-    # for post
-    if command == "post":
-        collection = connect_mongo()
-        post = {
-            "serial": status_post.serial,
-            "post": status_post.post,
-            "date": status_post.date,
-            "feeling": status_post.feeling,
-            "location": status_post.location,
-            "tag": status_post.tag}
-        #collection.insert_one(post)
-        # print(post)
-        return 'copy that'
-    # for get
-    elif command == "get":
-        collection = connect_mongo()
-        # only get serial, post, data
-        posts = []
-        for post in collection.find({}, {"_id": 0, "serial": 1, "post": 1, "date": 1}):
-            posts.append(post)
-        return posts
+@app.post("/status/post", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
+async def createPost(
+        file: UploadFile,
+        serial: str = Form(...),
+        user: str = Form(...),
+        post: str = Form(...),
+        date: str = Form(...),
+        feeling: str = Form(...),
+        location: str = Form(...),
+        tag: str = Form(...)
+    ):
+    connection = connect_mongo()
+    # save the file
+    file_path = f"images/{file.filename}"
+    with open(file_path, "wb") as buffer:
+        buffer.write(file.file.read())
+    print(serial)
+    return {
+        'data':'texts uploaded successfully',
+        'filename': file.filename,
+    }
+
+@app.post("/status/get", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
+async def getPost():
+    collection = connect_mongo()
+    # only get serial, post, data
+    posts = [];
+    for post in collection.find({}, {"_id": 0, "serial": 1, "post": 1, "date": 1}):
+        posts.append(post)
+    return posts
 
 # limiting rules: , dependencies=[Depends(RateLimiter(times=2, seconds=5))]
 @app.get("/cookietest", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
@@ -76,11 +82,25 @@ def get_cookies(request: Request):
 # creating an endpoint that can handle file upload and stores it in localhost
 # limiting rules: , dependencies=[Depends(RateLimiter(times=2, seconds=5))]
 @app.post("/uploadfile/", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
-async def create_upload_file(file: UploadFile = File(...)):
+async def create_upload_file(
+    file: UploadFile,
+    serial: str = Form(...),
+    user: str = Form(...),
+    post: str = Form(...),
+    date: str = Form(...),
+    feeling: str = Form(...),
+    location: str = Form(...),
+    tag: str = Form(...)
+    ):
     # save the file
-    with open(file.filename, "wb") as buffer:
+    file_path = f"images/{file.filename}"
+    with open(file_path, "wb") as buffer:
         buffer.write(file.file.read())
-    return {"filename": file.filename}
+    print(serial)
+    return {
+        'data':'texts uploaded successfully',
+        'filename': file.filename,
+    }
 
 ## Whole request structure
 """

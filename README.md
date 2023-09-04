@@ -7,6 +7,12 @@
 - Authentication
 - chatting system
 
+## Under progress
+
+- post upload system
+- post preview system
+- one command system up script
+
 ## features required
 
 - session management accross all services
