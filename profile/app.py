@@ -1,3 +1,6 @@
+import threading
+import asyncio
+
 from fastapi import FastAPI, File, UploadFile, Request, Depends
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -5,12 +8,14 @@ from lib.Mongo_Conn import connect_mongo
 from config.CorsData import origins
 from Types.StatusPost_Type import StatusPost, Cookie
 import redis.asyncio as redis
-
 from fastapi_limiter import FastAPILimiter
 from fastapi_limiter.depends import RateLimiter
 
 from bson.objectid import ObjectId # not used
 import pprint
+
+# Controllers import here
+from controller.statuspost import statusPost
 
 app = FastAPI()
 
@@ -44,31 +49,11 @@ def read_root():
 @return: get: FindOne: Items
 @return: post: Item
 """
-# limiting rules:  ,dependencies=[Depends(RateLimiter(times=2, seconds=5))]
+# !IMPORTANT
+# CRTICIAL TESTING REQUIRED
 @app.post("/status/command={command}", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
-async def statusPost(status_post: StatusPost or ' ', command: str):
-    print(command)
-    # for post
-    if command == "post":
-        collection = connect_mongo()
-        post = {
-            "serial": status_post.serial,
-            "post": status_post.post,
-            "date": status_post.date,
-            "feeling": status_post.feeling,
-            "location": status_post.location,
-            "tag": status_post.tag}
-        #collection.insert_one(post)
-        # print(post)
-        return 'copy that'
-    # for get
-    elif command == "get":
-        collection = connect_mongo()
-        # only get serial, post, data
-        posts = []
-        for post in collection.find({}, {"_id": 0, "serial": 1, "post": 1, "date": 1}):
-            posts.append(post)
-        return posts
+async def Action(status_post: StatusPost or ' ', command: str):
+    action = threading.Thread(target=asyncio.run(statusPost(status_post: StatusPost or ' ', command: str)))
 
 # get request
 """
