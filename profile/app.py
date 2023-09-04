@@ -9,7 +9,7 @@ import redis.asyncio as redis
 from fastapi_limiter import FastAPILimiter
 from fastapi_limiter.depends import RateLimiter
 
-from bson.objectid import ObjectId
+from bson.objectid import ObjectId # not used
 import pprint
 
 app = FastAPI()
@@ -21,11 +21,15 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
+# 
+"""
+@action : this is startup component
+@action : starts up your databases from here
+"""
 @app.on_event("startup")
 async def startup():
     Redis = redis.from_url("redis://localhost:6379", encoding="utf-8", decode_responses=True)
+    mongoDB = connect_mongo()
     await FastAPILimiter.init(Redis)
 
 @app.get("/", dependencies=[Depends(RateLimiter(times=10, seconds=5))])
@@ -66,7 +70,11 @@ async def statusPost(status_post: StatusPost or ' ', command: str):
             posts.append(post)
         return posts
 
-# limiting rules: , dependencies=[Depends(RateLimiter(times=2, seconds=5))]
+# get request
+"""
+@params : {cookies: {dict.token}}
+@action : this component checks the cookies that are received
+"""
 @app.get("/cookietest", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
 def get_cookies(request: Request):
     cookies = request.cookies
@@ -74,7 +82,10 @@ def get_cookies(request: Request):
     return {"cookies": cookies}
 
 # creating an endpoint that can handle file upload and stores it in localhost
-# limiting rules: , dependencies=[Depends(RateLimiter(times=2, seconds=5))]
+"""
+ @params : {file: FILE}
+ @actions: recieves and stores file on root
+"""
 @app.post("/uploadfile/", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
 async def create_upload_file(file: UploadFile = File(...)):
     # save the file
@@ -89,9 +100,6 @@ controller: validation(statusPost)
 model: CRUD(StatusPost): True/False
 routes -> controller -> model -> controller -> routes
 """
-
-print(connect_mongo())
-
 
 ## to run: uvicorn app:app --reload
 ## to run with uvicorn with custom port: uvicorn app:app --reload --port 3500
