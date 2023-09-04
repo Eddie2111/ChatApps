@@ -1,3 +1,6 @@
+import threading
+import asyncio
+
 from fastapi import FastAPI, File, UploadFile, Request, Depends, Form
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -5,12 +8,14 @@ from lib.Mongo_Conn import connect_mongo
 from config.CorsData import origins
 from Types.StatusPost_Type import StatusPost, Cookie
 import redis.asyncio as redis
-
 from fastapi_limiter import FastAPILimiter
 from fastapi_limiter.depends import RateLimiter
 
-from bson.objectid import ObjectId
+from bson.objectid import ObjectId # not used
 import pprint
+
+# Controllers import here
+from controller.statuspost import statusPost
 
 app = FastAPI()
 
@@ -21,11 +26,15 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
+#
+"""
+@action : this is startup component
+@action : starts up your databases from here
+"""
 @app.on_event("startup")
 async def startup():
     Redis = redis.from_url("redis://localhost:6379", encoding="utf-8", decode_responses=True)
+    mongoDB = connect_mongo()
     await FastAPILimiter.init(Redis)
 
 @app.get("/", dependencies=[Depends(RateLimiter(times=10, seconds=5))])
@@ -40,39 +49,17 @@ def read_root():
 @return: get: FindOne: Items
 @return: post: Item
 """
-# limiting rules:  ,dependencies=[Depends(RateLimiter(times=2, seconds=5))]
-@app.post("/status/post", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
-async def createPost(
-        file: UploadFile,
-        serial: str = Form(...),
-        user: str = Form(...),
-        post: str = Form(...),
-        date: str = Form(...),
-        feeling: str = Form(...),
-        location: str = Form(...),
-        tag: str = Form(...)
-    ):
-    connection = connect_mongo()
-    # save the file
-    file_path = f"images/{file.filename}"
-    with open(file_path, "wb") as buffer:
-        buffer.write(file.file.read())
-    print(serial)
-    return {
-        'data':'texts uploaded successfully',
-        'filename': file.filename,
-    }
+# !IMPORTANT
+# CRTICIAL TESTING REQUIRED
+@app.post("/status/command={command}", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
+async def Action(status_post: StatusPost or ' ', command: str):
+    action = threading.Thread(target=asyncio.run(statusPost(status_post: StatusPost or ' ', command: str)))
 
-@app.post("/status/get", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
-async def getPost():
-    collection = connect_mongo()
-    # only get serial, post, data
-    posts = [];
-    for post in collection.find({}, {"_id": 0, "serial": 1, "post": 1, "date": 1}):
-        posts.append(post)
-    return posts
-
-# limiting rules: , dependencies=[Depends(RateLimiter(times=2, seconds=5))]
+# get request
+"""
+@params : {cookies: {dict.token}}
+@action : this component checks the cookies that are received
+"""
 @app.get("/cookietest", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
 def get_cookies(request: Request):
     cookies = request.cookies
@@ -80,7 +67,10 @@ def get_cookies(request: Request):
     return {"cookies": cookies}
 
 # creating an endpoint that can handle file upload and stores it in localhost
-# limiting rules: , dependencies=[Depends(RateLimiter(times=2, seconds=5))]
+"""
+ @params : {file: FILE}
+ @actions: recieves and stores file on root
+"""
 @app.post("/uploadfile/", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
 async def create_upload_file(
     file: UploadFile,
@@ -109,9 +99,6 @@ controller: validation(statusPost)
 model: CRUD(StatusPost): True/False
 routes -> controller -> model -> controller -> routes
 """
-
-print(connect_mongo())
-
 
 ## to run: uvicorn app:app --reload
 ## to run with uvicorn with custom port: uvicorn app:app --reload --port 3500
