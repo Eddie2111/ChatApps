@@ -1,7 +1,7 @@
 from Types.StatusPost_Type import StatusPost, Cookie
 from lib.Mongo_Conn import connect_mongo
 
-async def statusPost(status_post: StatusPost or ' ', command: str):
+async def statusPost(status_post: StatusPost, command: str):
     print(command)
     # for post
     if command == "post":

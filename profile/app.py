@@ -49,11 +49,33 @@ def read_root():
 @return: get: FindOne: Items
 @return: post: Item
 """
-# !IMPORTANT
-# CRTICIAL TESTING REQUIRED
-@app.post("/status/command={command}", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
-async def Action(status_post: StatusPost or ' ', command: str):
-    action = threading.Thread(target=asyncio.run(statusPost(status_post: StatusPost or ' ', command: str)))
+
+@app.post("/status/command/posts/post", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
+async def Action(status_post: StatusPost):
+    #collection = connect_mongo()
+    post = {
+        "serial": status_post.serial,
+        "userId": status_post.userId,
+        "post": status_post.post,
+        "date": status_post.date,
+        "mood": status_post.mood,
+        "likes": status_post.likes,
+        "comments": status_post.comments,
+        "feeling": status_post.feeling,
+        "location": status_post.location,
+        "tag": status_post.tag}
+    # collection.insert_one(post)
+    print(post)
+    return 'copy that'
+
+@app.get("/status/command/posts/get", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
+async def Action():
+    collection = connect_mongo()
+    # only get serial, post, data
+    posts = []
+    for post in collection.find({}, {"_id": 0, "serial": 1, "post": 1, "date": 1, "feeling": 1, "location": 1, "tag": 1, "userId": 1, "mood": 1, "likes": 1, "comments": 1}):
+        posts.append(post)
+    return posts
 
 # get request
 """

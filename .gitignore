@@ -5,6 +5,10 @@
 app/node_modules/
 app/.env
 
+# Ignore node_modules folder in client_app folder
+client_app/node_modules/
+client_app/.env
+
 # Ignore node_modules folder in backend folder
 backend/node_modules/
 backend/.env

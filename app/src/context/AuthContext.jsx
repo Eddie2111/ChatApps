@@ -65,7 +65,6 @@ export const AuthProvider = ({ children }) => {
     deleteCookie("user");
   };
 
-  
   /**
    * @name setCookie
    * @action sets the cookie

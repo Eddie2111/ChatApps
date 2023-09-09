@@ -1,0 +1,48 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Mood {
+  Happy
+  Sad
+  Angry
+  Confused
+  Excited
+  Bored
+  Sleepy
+  Hungry
+  Thirsty
+  Sick
+  Tired
+  Neutral
+}
+
+model posts {
+  id        String     @unique
+  userId    String     @db.VarChar(255)
+  body      String     @db.VarChar(255)
+  mood      Mood       @default(Neutral)
+  image     String?    @db.VarChar(1024)
+  likes     Int        @default(0)
+  comments  Int        @default(0)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  deletedAt DateTime?
+}
+
+model comments {
+  id        String     @unique
+  body      String     @db.VarChar(255)
+  postId    String     @db.VarChar(255)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  deletedAt DateTime?
+}
