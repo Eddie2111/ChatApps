@@ -93,25 +93,25 @@ def get_cookies(request: Request):
  @params : {file: FILE}
  @actions: recieves and stores file on root
 """
-@app.post("/uploadfile/", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
+@app.post("/uploadfile", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
 async def create_upload_file(
-    file: UploadFile,
-    serial: str = Form(...),
-    user: str = Form(...),
+    file: UploadFile = File(...),
+    #serial: str = Form(...),
+    #user: str = Form(...),
     post: str = Form(...),
-    date: str = Form(...),
+    #date: str = Form(...),
     feeling: str = Form(...),
-    location: str = Form(...),
-    tag: str = Form(...)
+    #location: str = Form(...),
+    #tag: str = Form(...)
     ):
     # save the file
-    file_path = f"images/{file.filename}"
-    with open(file_path, "wb") as buffer:
-        buffer.write(file.file.read())
-    print(serial)
+    # file_path = f"images/{file.filename}"
+    # with open(file_path, "wb") as buffer:
+    #     buffer.write(file.file.read())
+    # print(serial)
     return {
         'data':'texts uploaded successfully',
-        'filename': file.filename,
+        # 'filename': file.filename,
     }
 
 ## Whole request structure

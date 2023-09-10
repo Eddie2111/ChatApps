@@ -1,10 +1,10 @@
 'use client';
 import React from "react";
+import axios from 'axios';
 import {Button, Card, CardHeader, CardBody, CardFooter, Divider, Link, Image, Input, Textarea} from "@nextui-org/react";
-import {Select, SelectSection, SelectItem} from "@nextui-org/select";
 import Mood from '@/data/SelectOptions.json';
 import {FaTelegramPlane} from "react-icons/fa";
-import {CreatingPost} from "../../controllers/createpostcontroller";
+//import {CreatingPostFunction} from './functions/CreatePostFunction';
 /**
  * CreatePost component
  * @component CreatePost, Form
@@ -41,6 +41,7 @@ export default function CreatePost(): JSX.Element {
     </Card>
   );
 }
+
 /**
  * Form component
  * @component Form
@@ -54,21 +55,22 @@ function Form(): JSX.Element{
      */
     const HandleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const FormData = new FormData();
-        const dataset = {
-            userId: '1234578',
-            body: e.currentTarget.body.value,
-            mood: e.currentTarget.mood.value,
-            image: 'https://avatars.githubusercontent.com/u/86160567?s=200&v=4'
-        }
-        console.log(dataset);
+        const formdata = new FormData(e.currentTarget);
+        formdata.append('feeling', e.currentTarget.feeling.value);
+        formdata.append('post', e.currentTarget.post.value);
+        formdata.append('file', e.currentTarget.file.value);
+        console.log(formdata);
+        await axios.post('http://localhost:3500/uploadfile',
+        formdata, {withCredentials: true})
+        .then((res):any=>{ console.log(res) })
+        .catch((err):any=>{ console.log('error') })
     }
     return(
         <form onSubmit={HandleSubmit}>
             <select
             placeholder="How are you feeling?"
             className="w-full p-2"
-            name='mood'
+            name='feeling'
             defaultValue='Neutral'
             >
                 <option value={'Neutral'}>{'How are you feeling?'}</option>
@@ -79,9 +81,10 @@ function Form(): JSX.Element{
             <Textarea
             placeholder="What are you thinking?"
             className="w-full"
-            name='body'
+            name='post'
             />
-            <Input type="file" label="Upload Photo" style={{display:"none"}} />
+            <input type="file" label="Upload Photo" className='transparent h-8 w-16' name='file' />
+            <br/>
             <Button
             type='submit'
             className='w-[120px] hover:bg-green-300 duration-300'

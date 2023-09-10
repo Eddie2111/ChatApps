@@ -2,7 +2,8 @@
 import React from 'react';
 import axios from 'axios';
 import {Input, Button} from '@nextui-org/react';
-//import {getCookie} from '@/utils/Cookie';
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function Loginform(): JSX.Element{
     return(
         <div className='w-72 block'>
@@ -31,6 +32,16 @@ const setCookie = ({name, value, days}: ICookieProps) => {
 };
 
 function Form(): JSX.Element{
+    async function call(message:string):Promise<void> {
+        await toast(message,
+            {
+                position: toast.POSITION.BOTTOM_CENTER,
+                autoClose: 2000,
+                progressClassName: 'display-none',
+                draggablePercent: 60
+            }
+        )
+    }
     const SubmitHandle = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(e.currentTarget.email.value);
@@ -40,16 +51,20 @@ function Form(): JSX.Element{
             password: e.currentTarget.password.value
         }, {withCredentials: true}
         )
-        .then((data:any)=>{
-            // console.log(data.data.token)
-            // localStorage.setItem('token', data.data.token)
+        .then((data)=>{
             console.log(data)
             setCookie({name: 'localuser', value: data.data.token, days: 1})
+            call('Login Successfull');
         })
-        .catch((err:any)=>console.log(err))
+        .catch((err)=>{
+            console.log(err)
+            call('Login Failed');
+        })
         return 'done'
     }
+
     return(
+        <>
     <form onSubmit={SubmitHandle}>
         <Input type="text" placeholder="username" name='email'/>
         <Input type="password" placeholder="password" name='password' />
@@ -58,5 +73,7 @@ function Form(): JSX.Element{
             color="success"
             type="submit">Login</Button>
     </form>
+    <ToastContainer limit={3} />
+    </>
     )
 }

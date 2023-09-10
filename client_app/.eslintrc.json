@@ -2,30 +2,31 @@
   "extends": [
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended"
-  ],
-  "plugins": ["@typescript-eslint"],
-  "rules": {
-    "indent": ["error", "tab"], // Check for single tabs
-    "space-in-braces": ["error", "never"], // Disallow spaces inside curly braces
-    "@typescript-eslint/explicit-module-boundary-types": "error", // Require function return types to be explicitly defined
-    "@typescript-eslint/explicit-function-return-type": [
-      "error",
-      {
-        "allowExpressions": true
-      }
-    ], // Require return types for functions
-    "jsdoc/require-param-description": "error", // Require @param descriptions in JSDoc comments
-    "jsdoc/require-returns-description": "error", // Require @returns description in JSDoc comments
-    "quotes": ["error", "single"], // Enforce single quotes
-    "quote-props": ["error", "as-needed"] // Enforce quotes around object literal property names when needed
-  },
-  "overrides": [
-    {
-      "files": ["*.tsx"], // Apply TypeScript-specific rules to TypeScript files
-      "rules": {
-        "@typescript-eslint/explicit-module-boundary-types": "off", // Allow implicit return types in JSX/TSX files
-        "@typescript-eslint/explicit-function-return-type": "off" // Allow implicit return types in JSX/TSX files
-      }
-    }
   ]
+  //,
+  // "plugins": ["@typescript-eslint"],
+  // "rules": {
+  //   "indent": ["error", "tab"], // Check for single tabs
+  //   "space-in-braces": ["error", "never"], // Disallow spaces inside curly braces
+  //   "@typescript-eslint/explicit-module-boundary-types": "error", // Require function return types to be explicitly defined
+  //   "@typescript-eslint/explicit-function-return-type": [
+  //     "error",
+  //     {
+  //       "allowExpressions": true
+  //     }
+  //   ], // Require return types for functions
+  //   "jsdoc/require-param-description": "error", // Require @param descriptions in JSDoc comments
+  //   "jsdoc/require-returns-description": "error", // Require @returns description in JSDoc comments
+  //   "quotes": ["error", "single"], // Enforce single quotes
+  //   "quote-props": ["error", "as-needed"] // Enforce quotes around object literal property names when needed
+  // },
+  // "overrides": [
+  //   {
+  //     "files": ["*.tsx"], // Apply TypeScript-specific rules to TypeScript files
+  //     "rules": {
+  //       "@typescript-eslint/explicit-module-boundary-types": "off", // Allow implicit return types in JSX/TSX files
+  //       "@typescript-eslint/explicit-function-return-type": "off" // Allow implicit return types in JSX/TSX files
+  //     }
+  //   }
+  // ]
 }

@@ -1,9 +1,7 @@
 'use client';
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
 import { socket } from "./socket";
 import { ConnectionState } from "./ConnectionState";
-import { ConnectionManager } from "./ConnectionManager";
 import Chat from "./chat";
 import {NextPage} from 'next';
 import {Spinner} from "@nextui-org/react";
@@ -26,7 +24,7 @@ export default function Index():NextPage {
   });
 
   return (
-    <div className="text-center">
+    <div className="justify-center">
       <ConnectionState isConnected={isConnected} />
       <Chat />
     </div>
