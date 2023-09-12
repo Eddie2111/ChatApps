@@ -1,10 +1,10 @@
 'use client';
 import React from "react";
 import axios from 'axios';
-import {Button, Card, CardHeader, CardBody, CardFooter, Divider, Link, Image, Input, Textarea} from "@nextui-org/react";
+import {Button, Card, CardHeader, CardBody, CardFooter, Divider, Link, Image, Textarea} from "@nextui-org/react";
 import Mood from '@/data/SelectOptions.json';
 import {FaTelegramPlane} from "react-icons/fa";
-//import {CreatingPostFunction} from './functions/CreatePostFunction';
+//import {postTest} from '@/app/api/handle';
 /**
  * CreatePost component
  * @component CreatePost, Form
@@ -53,17 +53,22 @@ function Form(): JSX.Element{
      * @param {React.FormEvent<HTMLFormElement>} e
      * @return {void} void
      */
+    const [selectedFile, setSelectedFile] = React.useState(null);
+
+    const handleFileInputChange = (e) => {
+        setSelectedFile(e.target.files[0]);
+    };
     const HandleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formdata = new FormData(e.currentTarget);
         formdata.append('feeling', e.currentTarget.feeling.value);
         formdata.append('post', e.currentTarget.post.value);
-        formdata.append('file', e.currentTarget.file.value);
+        formdata.append('file', selectedFile);
         console.log(formdata);
-        await axios.post('http://localhost:3500/uploadfile',
-        formdata, {withCredentials: true})
-        .then((res):any=>{ console.log(res) })
-        .catch((err):any=>{ console.log('error') })
+        await axios.post('http://localhost:3500/testing/post',formdata, {withCredentials:true})
+        .then((res)=>{ console.log(res) })
+        .catch(()=>{ console.log('error') })
+        //postTest(formdata);
     }
     return(
         <form onSubmit={HandleSubmit}>
@@ -83,7 +88,11 @@ function Form(): JSX.Element{
             className="w-full"
             name='post'
             />
-            <input type="file" label="Upload Photo" className='transparent h-8 w-16' name='file' />
+            <input type="file" label="Upload Photo" className='transparent h-8 w-16' name='file'
+            accept=".jpg, .jpeg, .png, .gif"
+            onChange={handleFileInputChange}
+            id="file"
+            />
             <br/>
             <Button
             type='submit'

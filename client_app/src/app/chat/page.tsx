@@ -4,7 +4,7 @@ import { socket } from "./socket";
 import { ConnectionState } from "./ConnectionState";
 import Chat from "./chat";
 import {NextPage} from 'next';
-import {Spinner} from "@nextui-org/react";
+//import {Spinner} from "@nextui-org/react";
 
 export default function Index():NextPage {
   const [isConnected, setIsConnected] = useState(socket.connected);

@@ -1,21 +1,22 @@
-import threading
-import asyncio
+from datetime import datetime
 
-from fastapi import FastAPI, File, UploadFile, Request, Depends, Form
+from fastapi import FastAPI, UploadFile, Request, Depends, Form
 from fastapi.middleware.cors import CORSMiddleware
 
 from lib.Mongo_Conn import connect_mongo
 from config.CorsData import origins
-from Types.StatusPost_Type import StatusPost, Cookie
+from Types.StatusPost_Type import StatusPost
 import redis.asyncio as redis
 from fastapi_limiter import FastAPILimiter
 from fastapi_limiter.depends import RateLimiter
 
-from bson.objectid import ObjectId # not used
+from functions.tokenDecrypt import getTokenInfo
+from functions.randomGenerator import stringGenerator
+from bson.objectid import ObjectId
 import pprint
 
 # Controllers import here
-from controller.statuspost import statusPost
+from controller.statuspost import user_status_post
 
 app = FastAPI()
 
@@ -37,6 +38,11 @@ async def startup():
     mongoDB = connect_mongo()
     await FastAPILimiter.init(Redis)
 
+#############################################################################################
+from routes.uploadPost import app as uploadPost
+app.include_router(uploadPost)
+#############################################################################################
+
 @app.get("/", dependencies=[Depends(RateLimiter(times=10, seconds=5))])
 def read_root():
     return {"Hello": "World"}
@@ -49,24 +55,6 @@ def read_root():
 @return: get: FindOne: Items
 @return: post: Item
 """
-
-@app.post("/status/command/posts/post", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
-async def Action(status_post: StatusPost):
-    #collection = connect_mongo()
-    post = {
-        "serial": status_post.serial,
-        "userId": status_post.userId,
-        "post": status_post.post,
-        "date": status_post.date,
-        "mood": status_post.mood,
-        "likes": status_post.likes,
-        "comments": status_post.comments,
-        "feeling": status_post.feeling,
-        "location": status_post.location,
-        "tag": status_post.tag}
-    # collection.insert_one(post)
-    print(post)
-    return 'copy that'
 
 @app.get("/status/command/posts/get", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
 async def Action():
@@ -87,32 +75,6 @@ def get_cookies(request: Request):
     cookies = request.cookies
     print(cookies)
     return {"cookies": cookies}
-
-# creating an endpoint that can handle file upload and stores it in localhost
-"""
- @params : {file: FILE}
- @actions: recieves and stores file on root
-"""
-@app.post("/uploadfile", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
-async def create_upload_file(
-    file: UploadFile = File(...),
-    #serial: str = Form(...),
-    #user: str = Form(...),
-    post: str = Form(...),
-    #date: str = Form(...),
-    feeling: str = Form(...),
-    #location: str = Form(...),
-    #tag: str = Form(...)
-    ):
-    # save the file
-    # file_path = f"images/{file.filename}"
-    # with open(file_path, "wb") as buffer:
-    #     buffer.write(file.file.read())
-    # print(serial)
-    return {
-        'data':'texts uploaded successfully',
-        # 'filename': file.filename,
-    }
 
 ## Whole request structure
 """

@@ -54,7 +54,7 @@ function Form(): JSX.Element{
         .then((data)=>{
             console.log(data)
             setCookie({name: 'localuser', value: data.data.token, days: 1})
-            call('Login Successfull');
+            call(data.data.errors || 'Login Success');
         })
         .catch((err)=>{
             console.log(err)

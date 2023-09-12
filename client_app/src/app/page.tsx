@@ -1,9 +1,10 @@
 'use client';
 import React from "react";
-import {Spinner} from "@nextui-org/react";
+import { Spinner } from "@nextui-org/react";
 import CreatePost from '@/components/Forms/CreatePosts';
 import Posts from '@/components/Cards/Posts';
-import {ThemeSwitcher} from '@/components/Buttons/ThemeSwitcher';
+//import { ThemeSwitcher } from '@/components/Buttons/ThemeSwitcher';
+
 type PostProps = {
   id: string;
   userId: string;
@@ -16,25 +17,41 @@ type PostProps = {
   updatedAt: Date;
   deletedAt: Date | null;
 };
+
 export default function Home() {
-  const testList = [ 1,2,3,4,5,6,7,8,9,0 ];
+  const testList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
   const [posts, setPosts] = React.useState([]);
-  React.useEffect(()=>{
+  React.useEffect(() => {
     fetch(`http://localhost:3500/status/command/posts/get`)
-    .then(res=>res.json())
-    .then(data=>{
-      setPosts(data)
-      console.log(data)
-  })
-    .catch(err=>console.log(err));
-  },[]);
+      .then(res => res.json())
+      .then(data => {
+        setPosts(data);
+        console.log(data);
+      })
+      .catch(err => console.log(err));
+  }, []);
+
   return (
     <center>
       <CreatePost />
-      {
-        posts.length === 0 ? <Spinner size='lg' className='my-5'/> :
-        posts.map((post:PostProps)=>{return <Posts key={post.id} {...post}/>})
-      }
+      {posts.length === 0 ? (
+        <Spinner size='lg' className='my-5' />
+      ) : (
+        posts.map((post: PostProps, index: number) => (
+          <div key={post.id}>
+            {index % 3 === 0 ? (
+              <div key={post.id}>
+              <div aria-hidden='true' className='bg-layers bg-scale w-56 h-56 m-auto blur-xl bg-gradient-to-r dark:from-purple-800 dark:via-blue-700 dark:to-cyan-600 from-violet-300 via-cyan-300 to-purple-300 rounded-full md:w-[45rem] md:h-[25rem] md:blur-3xl absolute'></div>
+              <Posts {...post}/>
+              </div>
+            ) : (
+              <div key={post.id}>
+                <Posts {...post}/>
+              </div>
+            )}
+          </div>
+        ))
+      )}
     </center>
-  )
+  );
 }

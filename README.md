@@ -6,21 +6,23 @@
 - smooth scroll
 - Authentication
 - chatting system
+- upgrade frontend to next13 app
+- post creation
+- post upload system
+- post preview system
 
 ## Under progress
 
-- post upload system
-- post preview system
+- profile and profile system with context
 - one command system up script
 
 ## features required
 
+- indentity setup
 - session management accross all services
-- post creation
 - chatting, profile with identity
 - friends and connection
 - friends post show up
-- upgrade frontend to next13 app
 
 ### Frontend
 
@@ -58,7 +60,7 @@
 
 ### progress
 
-## app
+## client_app
 
 - login page added
 - signup page added
@@ -66,7 +68,8 @@
 - nextUI added
 - navbar added
 - footer added
-- authContext added **
+- home page as posts added
+- lenis scroll added
 - google eslint added **
 
 ## backend
@@ -77,6 +80,7 @@
 - chat rooms created
 
 ## auth
+
 - express created
 - prisma initated : mysql
 - User, Group models added
@@ -90,3 +94,4 @@
 - cors set up
 - mongoDB integration : create, read
 - singleton connection: Mongo, Kafka
+- rate limiting using redis and fastapi_rateLimit

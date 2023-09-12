@@ -2,7 +2,7 @@
 
 ## Start the server
 
-uvicorn app:app --reload --port 8000
+uvicorn app:app --reload --port 3500
 
 ### features
 
@@ -10,6 +10,7 @@ uvicorn app:app --reload --port 8000
 - image upload and update mongoDB
 - video upload and update mongoDB
 - getter
+- post creation
 
 ### done
 
@@ -18,12 +19,12 @@ uvicorn app:app --reload --port 8000
 - cors set up
 - mongoDB integration : create, read
 - singleton connection: Mongo, Kafka
-- post creation
+- file handling route
+- file handling and data handling route endpoint
+- rate limiting added with redis
 
 ### required
 
-- file handling route
-- file handling and data handling route endpoint
 - id based post pull
 - kafka setup
 - file splitting

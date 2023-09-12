@@ -27,6 +27,11 @@ const Chat = ():JSX.Element => {
       setMessages([...messages, msg]);
     });
   }, [messages]);
+  /**
+   * This function sets the message to the server
+   * @dependencies {message, username}
+   * @return {void}
+   */
   const setShow = useMemo(() => {
     return () => {
       console.log(message);

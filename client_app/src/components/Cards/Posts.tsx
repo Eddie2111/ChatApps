@@ -1,6 +1,6 @@
 'use client';
 import React from "react";
-import {Button, Card, CardHeader, CardBody, CardFooter, Divider, Link, Image} from "@nextui-org/react";
+import {Button, Card, CardHeader, CardBody, CardFooter, Divider, Image} from "@nextui-org/react";
 
 interface PostProps{
     userId: string;

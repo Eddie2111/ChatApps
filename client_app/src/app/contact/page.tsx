@@ -1,26 +1,26 @@
 'use client';
 import React from 'react';
-import Link from 'next/link';
+//import Link from 'next/link';
 import Handler from './handler.ts';
 
 interface Idata {
-    firstName: String;
-    lastName: String;
-    email: String;
-    phone: String;
-    message: String;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    message: string;
 }
 interface Iresponse {
-    message: String;
+    message: string;
     status: number;
 }
 
 export default function AboutPage():React.FC{
-    const [firstName, setFirstName] = React.useState<String>('');
-    const [lastName, setLastName] = React.useState<String>('');
-    const [email, setEmail] = React.useState<String>('');
-    const [phone, setPhone] = React.useState<String>('');
-    const [message, setMessage] = React.useState<String>('');
+    const [firstName, setFirstName] = React.useState<string>('');
+    const [lastName, setLastName] = React.useState<string>('');
+    const [email, setEmail] = React.useState<string>('');
+    const [phone, setPhone] = React.useState<string>('');
+    const [message, setMessage] = React.useState<string>('');
     const SubmitHandle = async() => {
         const data:Idata = {
             firstName,lastName,

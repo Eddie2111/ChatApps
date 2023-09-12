@@ -1,9 +1,9 @@
 interface IData {
-    firstName: String;
-    lastName: String;
-    email: String;
-    phone: String;
-    message: String;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    message: string;
 }
 export default async function Handler(data: IData){
     console.log(data)
