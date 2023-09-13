@@ -8,6 +8,8 @@ from controller.statuspost import user_status_post
 from functions.tokenDecrypt import getTokenInfo
 from bson.objectid import ObjectId
 
+from functions.StoreFiles import StoreFile
+
 app = APIRouter()
 
 @app.get("/testing/post")
@@ -32,13 +34,12 @@ async def root(
         "route": "/index"
     }
 
-def StoreFile(file:dict) -> None:
-    file_path = f"images/{file.filename}"
-    with open(file_path, "wb") as buffer:
-        buffer.write(file.file.read())
-
 async def PostedDataPush(file, post, feeling, request):
-    StoreFile(file)
+    #StoreFile(file)
+    # 
+    """
+    @required : upload the file to CDN
+    """
     tokenData = getTokenInfo(str(request.cookies['token']))
     serial = str(ObjectId())
     db_dataset = {
