@@ -59,9 +59,8 @@ def read_root():
 @app.get("/status/command/posts/get", dependencies=[Depends(RateLimiter(times=2, seconds=5))])
 async def Action():
     collection = connect_mongo()
-    # only get serial, post, data
     posts = []
-    for post in collection.find({}, {"_id": 0, "serial": 1, "post": 1, "date": 1, "feeling": 1, "location": 1, "tag": 1, "userId": 1, "mood": 1, "likes": 1, "comments": 1}):
+    for post in collection.find({}, {"_id": 0, "serial": 1, "file":1, "post": 1, "date": 1, "feeling": 1, "location": 1, "tag": 1, "userId": 1, "mood": 1, "likes": 1, "comments": 1}):
         posts.append(post)
     return posts
 

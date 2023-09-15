@@ -1,5 +1,5 @@
 import threading
-
+import requests
 from datetime import datetime
 from fastapi import APIRouter, Depends, Request, UploadFile, Form
 from fastapi_limiter.depends import RateLimiter
@@ -8,12 +8,10 @@ from controller.statuspost import user_status_post
 from functions.tokenDecrypt import getTokenInfo
 from bson.objectid import ObjectId
 
-from functions.StoreFiles import StoreFile
-
 app = APIRouter()
 
 @app.get("/testing/post")
-async def root():
+async def root()->dict:
     return {
         "message": "Hello World",
         "method": "GET",
@@ -23,7 +21,7 @@ async def root():
 @app.post("/testing/post", dependencies=[Depends(RateLimiter(times=1, seconds=5))])
 async def root(
     request: Request,
-    file: UploadFile,
+    file: UploadFile = None,
     post: str = Form(...),
     feeling: str = Form(...),
 ):
@@ -34,24 +32,52 @@ async def root(
         "route": "/index"
     }
 
-async def PostedDataPush(file, post, feeling, request):
-    #StoreFile(file)
-    # 
+#############################################################################################
+async def PostedDataPush(file:dict, post:str, feeling:str, request:dict)->dict:
     """
     @required : upload the file to CDN
     """
-    tokenData = getTokenInfo(str(request.cookies['token']))
-    serial = str(ObjectId())
-    db_dataset = {
-        "serial": serial,
-        "userId": tokenData['id'],
-        "post": post,
-        "date": str(datetime.now()),
-        "feeling": feeling,
-        "location": "",
-        "tag": "",
-        'file': file.filename,
-    }
-    collection = connect_mongo()
-    collection.insert_one(db_dataset)
-    return db_dataset
+    # send the file to localhost:3700/upload
+    try:
+        if file:
+            response = await postFile(file,file.filename)
+        else:
+            response = {
+                "file_id": ""
+            }
+        tokenData = getTokenInfo(str(request.cookies['token']))
+        serial = str(ObjectId())
+        print(response)
+        db_dataset = {
+            "serial": serial,
+            "userId": tokenData['id'],
+            "post": post,
+            "date": str(datetime.now()),
+            "feeling": feeling,
+            "location": "",
+            "tag": "",
+            'file': response['file_id'],
+        }
+        collection = connect_mongo()
+        collection.insert_one(db_dataset)
+        return db_dataset
+    except Exception as e:
+        print(e)
+        return e
+#############################################################################################
+async def postFile(file: UploadFile, filename:str) -> dict:
+    """
+    @required : upload the file to CDN
+    """
+    # send the file to localhost:3700/upload
+    try:
+        filesName = filename
+        file_content = await file.read()
+        response = requests.post('http://localhost:3700/upload?name='+filesName, files={'file': file_content} )
+        return response.json()
+    except Exception as e:
+        return {
+            "message": "error",
+            "error": str(e)
+        }
+#############################################################################################

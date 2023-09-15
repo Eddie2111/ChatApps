@@ -1,4 +1,5 @@
 'use client';
+import axios from 'axios';
 import React from "react";
 import {Button, Card, CardHeader, CardBody, CardFooter, Divider, Image} from "@nextui-org/react";
 
@@ -7,8 +8,29 @@ interface PostProps{
     post: string;
     feeling: string;
     image: string;
+    file: string;
 }
+/**
+ * this is posts card
+ * @description: renders the data provided in a card
+ * @action preview, like, comment, share
+ * @param data: {userId: string, post: string, feeling: string, image: string, file: string}
+ * @returns JSX.Element
+ */
 export default function Posts(data:PostProps):JSX.Element {
+  const [imagedata, setImagedata] = React.useState<boolean>(true);
+  React.useEffect(()=>{
+    axios.get('http://localhost:3700/get_any?image=' + data.file)
+      .then(res => {
+        if(res.data === 'no image'){
+          setImagedata(false);
+        }
+        else{
+          setImagedata(true);
+        }
+      })
+      .catch(err => console.log(err));
+  },[data.file])
   return (
     <Card className="max-w-[400px] my-5">
       <CardHeader className="flex gap-3">
@@ -27,6 +49,24 @@ export default function Posts(data:PostProps):JSX.Element {
       <Divider/>
       <CardBody>
         <p>{data.post}</p>
+        {
+          imagedata === false ? 
+          null : 
+          <Image
+            alt='posts'
+            height='400px'
+            src={'http://localhost:3700/get_any?image=' + data.file}
+            onLoadingFinish={() => console.log('Image loaded!')}
+            onError={() => {
+              console.log('Image failed to load.');
+              setImageheight('0px'); // Set image height to 0px when the image fails to load
+              setImagewidth('0px'); // Set image width to 0px when the image fails to load
+              setImagedata(''); // Set imagedata to empty when the image fails to load
+            }}
+            width='400px'
+          />
+        }
+          
       </CardBody>
       <Divider/>
       <CardFooter>
