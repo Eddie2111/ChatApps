@@ -4,6 +4,14 @@ import axios from 'axios';
 import {Input, Button} from '@nextui-org/react';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {useAuth} from '@/context/TestContext';
+
+/**
+ * this down here is login form component
+ * this is the main component that wraps all other components
+ * not required to modify unless styling
+ * @return {JSX.Element}
+ */
 export default function Loginform(): JSX.Element{
     return(
         <div className='w-72 block'>
@@ -11,19 +19,13 @@ export default function Loginform(): JSX.Element{
         </div>
     )
 }
-interface IResponseProps{
-    data: {
-        data: {
-            token: string;
-        },
-        errors?: string;
-    }
-}
-interface ICookieProps{
-    name: string;
-    value: string;
-    days: number;
-}
+
+/**
+ * this down here is setCookie function
+ * @action : sets a client side cookie
+ * @param {name, value, days}
+ * @return {None}
+ */
 const setCookie = ({name, value, days}: ICookieProps) => {
     const expirationDate = new Date();
     expirationDate.setDate(expirationDate.getDate() + days);
@@ -31,7 +33,21 @@ const setCookie = ({name, value, days}: ICookieProps) => {
     document.cookie = `${name}=${cookieValue}; path=/; secure=true; httpOnly=true;`;
 };
 
+/**
+ * this down here is main form component
+ * @return {JSX.Element}
+ */
 function Form(): JSX.Element{
+    /**
+     * this down here is toast component
+     * @param message
+     * @return {JSX.Element}
+     */
+    const {Login} = useAuth();
+    const [name, setName] = React.useState<string>('');
+    async function Main(){
+        await Login();
+    }
     async function call(message:string):Promise<void> {
         await toast(message,
             {
@@ -42,6 +58,11 @@ function Form(): JSX.Element{
             }
         )
     }
+    /**
+     * this down here is form component
+     * @param {event}
+     * @return {None}
+     */
     const SubmitHandle = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(e.currentTarget.email.value);
@@ -53,7 +74,8 @@ function Form(): JSX.Element{
         )
         .then((data)=>{
             console.log(data)
-            setCookie({name: 'localuser', value: data.data.token, days: 1})
+            // setCookie({name: 'localuser', value: data.data.token, days: 1})
+            Main();
             call(data.data.errors || 'Login Success');
         })
         .catch((err)=>{
@@ -76,4 +98,21 @@ function Form(): JSX.Element{
     <ToastContainer limit={3} />
     </>
     )
+}
+
+/**
+ * this down here is interface for response
+ */
+interface IResponseProps{
+    data: {
+        data: {
+            token: string;
+        },
+        errors?: string;
+    }
+}
+interface ICookieProps{
+    name: string;
+    value: string;
+    days: number;
 }

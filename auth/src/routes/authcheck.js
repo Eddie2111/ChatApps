@@ -28,10 +28,17 @@ router
     }
 })
 .post(async(req, res) => {
-    const data = req.body || req.cookies;
-    const decoded = jwt.verify(data.token, process.env.JWT_SECRET);
-    const user = await findUserById(decoded.id);
-    res.json(user)
+    const data = req.body.data;
+    if (!data) return res.status(401).send('Access denied. No token provided.');
+    try{
+        const decoded = jwt.verify(data, process.env.JWT_SECRET);
+        const user = await findUserById(decoded.id);
+        console.log("authCheck for",user.id)
+        res.json(user)
+    }
+    catch(e){
+        res.status(400).send('Invalid token.');
+    }
 })
 
 module.exports = router;

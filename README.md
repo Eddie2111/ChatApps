@@ -9,12 +9,12 @@
 - upgrade frontend to next13 app
 - post creation
 - post upload system
-- post preview system
+- post preview system + images
 
 ## Under progress
 
 - profile and profile system with context
-- one command system up script
+- one command system up script *****
 
 ## features required
 
@@ -45,7 +45,13 @@
         - python
         - fastapi
         - mongo
+        - rate limite: redis
         - [Zookeeper : Kafka]
+- CDN :
+        - python
+        - flask
+        - rate limite: redis
+        - os
 
 ### Dev Tools
 
