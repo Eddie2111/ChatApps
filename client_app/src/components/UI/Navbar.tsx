@@ -3,9 +3,23 @@ import React from 'react';
 import { usePathname } from 'next/navigation'
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuItem, NavbarMenu, NavbarMenuToggle, Link as NextLink, Button} from "@nextui-org/react";
 import {ThemeSwitcher} from './ThemeSwitcher';
+import {useAuth} from '@/context/TestContext'
 export const NextNavbar = ():JSX.Element => {
+  const {getUser} = useAuth();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [user, setUser] = React.useState({});
   const pathname = usePathname();
+  React.useEffect(()=>{
+    const response = async()=>{
+        setUser({
+          name: localStorage.getItem('name'),
+          email: localStorage.getItem('email'),
+          id: localStorage.getItem('id'),
+          image: localStorage.getItem('image'),
+        })
+    }
+    response();
+  },[getUser])
   const menuItems = [
     "Profile",
     "Dashboard",
@@ -18,7 +32,6 @@ export const NextNavbar = ():JSX.Element => {
     "Help & Feedback",
     "Log Out",
   ];
-
   return (
     <Navbar
       isBordered
@@ -60,12 +73,15 @@ export const NextNavbar = ():JSX.Element => {
 
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
-          <NextLink href="/login">Login</NextLink>
+          {
+            user?.name ? <NextLink href="/logout">Logout</NextLink> : <NextLink href="/login">Login</NextLink>
+          }
         </NavbarItem>
         <NavbarItem>
-          <Button as={NextLink} color="warning" href="/signup" variant="flat">
-            Sign Up
-          </Button>
+
+          {
+            user?.id ? <NextLink href="/profile">Profile</NextLink> : <NextLink href="/signup">Sign up</NextLink>
+          }
           
             <ThemeSwitcher/>
           

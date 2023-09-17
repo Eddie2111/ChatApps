@@ -17,6 +17,10 @@ export const AuthProvider = ({ children }) => {
     const userData = await GetUser();
     return userData;
   };
+  const LogOut = async() => {
+    // !IMPORTANT ########  !!not implemented!! ####### !IMPORTANT
+    //await Logout();
+  }
   /*
   const [user, setUser] = useState(() => {
     const storedUser = getCookie("user");
@@ -40,7 +44,7 @@ export const AuthProvider = ({ children }) => {
   );
   */
   return (
-    <AuthContext.Provider value={{ CookieTest, Login, getUser }}>
+    <AuthContext.Provider value={{ CookieTest, Login, getUser, LogOut }}>
       {children}
     </AuthContext.Provider>
   );

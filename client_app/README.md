@@ -2,6 +2,7 @@
 
 ## required
 
+- set the user data in the localstorage when you login using contexts
 - parse the cookie and fix profile and home page
 - parse the cookie and fix profile and chat page
 - Show images with the posts

@@ -43,10 +43,14 @@ function Form(): JSX.Element{
      * @param message
      * @return {JSX.Element}
      */
-    const {Login} = useAuth();
-    const [name, setName] = React.useState<string>('');
+    const {Login,getUser} = useAuth();
     async function Main(){
         await Login();
+        const datasetting = await getUser();
+        localStorage.setItem('name', datasetting.name.value);
+        localStorage.setItem('email', datasetting.email.value);
+        localStorage.setItem('id', datasetting.id.value);
+        localStorage.setItem('image', datasetting.image.value);
     }
     async function call(message:string):Promise<void> {
         await toast(message,

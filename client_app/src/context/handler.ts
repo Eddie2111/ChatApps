@@ -14,11 +14,11 @@ interface IUserDataProps {
     id: string;
     image: string;
 }
-interface IErrorProps {
-    name: string;
-    message: string;
-    stack: string;
-}
+// interface IErrorProps {
+//     name: string;
+//     message: string;
+//     stack: string;
+// }
 
 export async function SetUser(): ICookieProps{
     const cookie = cookies();
@@ -35,6 +35,11 @@ export async function SetUser(): ICookieProps{
         cookie.set('email',userData.data.email, cookieAttribute);
         cookie.set('id',userData.data.id, cookieAttribute);
         cookie.set('image',userData.data.image, cookieAttribute);
+        // localstorage is not available in server side
+        // localStorage.setItem('name',userData.data.name);
+        // localStorage.setItem('email',userData.data.email);
+        // localStorage.setItem('id',userData.data.id);
+        // localStorage.setItem('image',userData.data.image);
 
         return decoded;
     }
@@ -46,10 +51,25 @@ export async function SetUser(): ICookieProps{
 export async function GetUser(): IUserDataProps{
     const cookieStore = cookies();
     const userData = {
-      name: cookieStore.get('name').value,
-      email: cookieStore.get('email').value,
-      id: cookieStore.get('id').value,
-      image: cookieStore.get('image').value
+      name: cookieStore.get('name'),
+      email: cookieStore.get('email'),
+      id: cookieStore.get('id'),
+      image: cookieStore.get('image')
     };
     return userData;
+}
+export async function Logout(): void{
+    const cookie = cookies();
+    try{
+        const token = cookie.get('token');
+        await axios.post('http://localhost:3100/logout',{data:token.value},{withCredentials: true});
+        cookie.remove('token');
+        cookie.remove('name');
+        cookie.remove('email');
+        cookie.remove('id');
+        cookie.remove('image');
+    }
+    catch(err){
+        console.log(err);
+    }
 }
