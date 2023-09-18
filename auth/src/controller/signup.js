@@ -25,7 +25,7 @@ async function signup(req, res) {
     }
     const hashedPassword = await hash(password, 10);
     const userId = uuidv4();
-    
+
     await createAccount({ id: userId, name: name, email: email, password: hashedPassword })
     .then((user) => { console.log(user); })
     .catch((error) => { console.error(error); });

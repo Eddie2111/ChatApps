@@ -17,5 +17,9 @@ backend/.env
 auth/node_modules/
 auth/.env
 
+# Ignore node_modules folder in profile folder
+profile/node_modules/
+profile/.env
+
 # Ignore mega files in profile folder
 profile/mega-*
