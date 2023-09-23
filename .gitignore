@@ -1,3 +1,13 @@
+### docker commands
+
+docker run -d -p 5200:3306 -p 5300:3306 --name mysql -e MYSQL_PASSWORD=admin -e MYSQL_ALLOW_EMPTY_PASSWORD=true -e MYSQL_ROOT_PASSWORD=Admin1234.. mysql:latest
+docker run -d -p 5400:27017 -p 5500:27017 --name mongodb mongo:latest
+docker run -d -p 6200:7474 -p 6300:7687 -p 6400:7473 --name neo4j -e NEO4J_AUTH=neo4j/Admin1234. neo4j:latest
+docker run -d -p 5800:6379 -p 5900:6380 --name redis redis:latest
+docker run -d -p 5600:5432 -p 5700:5433 --name postgres -e POSTGRES_USER=root -e POSTGRES_PASSWORD=admin postgres:latest
+docker run -d --name kafka -p 9092:9092 -e ALLOW_PLAINTEXT_LISTENER=yes bitnami/kafka:latest
+docker network create testnetwork
+
 # Ignore.env file
 .env
 
@@ -20,6 +30,8 @@ auth/.env
 # Ignore node_modules folder in profile folder
 profile/node_modules/
 profile/.env
+profile/http_ca.crt
+profile/http_ca
 
 # Ignore mega files in profile folder
 profile/mega-*

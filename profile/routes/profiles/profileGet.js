@@ -1,7 +1,7 @@
 const express = require('express');
 // eslint-disable-next-line new-cap
 const router = express.Router();
-
+const {getProfileByID} = require('../../controller/profileGetting');
 router
     .route('/')
     .get((req, res)=>{
@@ -11,11 +11,13 @@ router
         });
     })
     .post(async (req, res)=>{
-        console.log(req.body);
+        console.log(req.body.id);
+        const result = await getProfileByID(req.body.id);
         if (result) {
             res.json({
                 status: 200,
                 message: 'reached route',
+                result: result,
             });
         } else {
             res.json({

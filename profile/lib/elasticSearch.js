@@ -7,7 +7,7 @@ const client = new Client({
         password: 'VYn7N-2p+P9C3iHg-h98',
     },
     tls: {
-        ca: fs.readFileSync('./http_ca.crt'),
+        ca: process.env.CA_CERT,
         rejectUnauthorized: false,
     },
 });

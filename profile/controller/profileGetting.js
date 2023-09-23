@@ -1,6 +1,6 @@
 'use strict';
-const client = require('../../lib/elasticSearch');
-const Profile = require('../../model/profileSchema');
+const client = require('../lib/elasticSearch');
+const Profile = require('../model/profileSchema');
 const {v4: uuidv4} = require('uuid');
 const {validate} = require('uuid');
 const {ObjectId} = require('mongodb');

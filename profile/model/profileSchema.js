@@ -67,7 +67,7 @@ profileSchema.plugin(mongoosastic, {
             password: elasticsearchPassword,
         },
         tls: {
-            ca: fs.readFileSync('./http_ca.crt'),
+            ca: process.env.CA_CERT,
             rejectUnauthorized: false,
         },
     }),
