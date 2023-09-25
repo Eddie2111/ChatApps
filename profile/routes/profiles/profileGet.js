@@ -10,6 +10,7 @@ router
             message: 'Method not allowed',
         });
     })
+    
     .post(async (req, res)=>{
         console.log(req.body.id);
         const result = await getProfileByID(req.body.id);
