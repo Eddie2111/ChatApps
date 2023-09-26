@@ -38,7 +38,7 @@ async function findUserById(id) {
             })
             return user;
     } catch (error) {
-        
+
     }
 }
 async function findUserByName(name) {
@@ -50,7 +50,7 @@ async function findUserByName(name) {
             })
             return user;
     } catch (error) {
-        
+
     }
 }
 async function findUserByGroup(group) {
