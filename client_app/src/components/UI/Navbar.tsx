@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
-import { usePathname } from 'next/navigation'
-import {Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuItem, NavbarMenu, NavbarMenuToggle, Link as NextLink, Button} from "@nextui-org/react";
+import { useRouter,usePathname } from 'next/navigation'
+import {Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuItem, NavbarMenu, NavbarMenuToggle, Link as NextLink} from "@nextui-org/react";
 import {ThemeSwitcher} from './ThemeSwitcher';
 import {useAuth} from '@/context/TestContext'
 export const NextNavbar = ():JSX.Element => {
@@ -32,6 +32,17 @@ export const NextNavbar = ():JSX.Element => {
     "Help & Feedback",
     "Log Out",
   ];
+  async function handleLogout(): Promise<void>{
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const router = useRouter()
+    const response = await axios.get('http://localhost:3100/signout', {withCredentials: true});
+    console.log(response.data);
+    localStorage.removeItem('name');
+    localStorage.removeItem('email');
+    localStorage.removeItem('id');
+    localStorage.removeItem('image');
+    router.push('/');
+}
   return (
     <Navbar
       isBordered
@@ -74,7 +85,7 @@ export const NextNavbar = ():JSX.Element => {
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
           {
-            user?.name ? <NextLink href="/logout">Logout</NextLink> : <NextLink href="/login">Login</NextLink>
+            user?.name ? <NextLink onClick={handleLogout}>Logout</NextLink> : <NextLink href="/login">Login</NextLink>
           }
         </NavbarItem>
         <NavbarItem>

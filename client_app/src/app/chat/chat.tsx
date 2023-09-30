@@ -9,7 +9,7 @@ import {socket} from './socket';
  */
 const Chat = ():JSX.Element => {
   const [message, setMessage] = useState<string>('');
-  const [ messages, setMessages] = useState<Array<any>>([]);
+  const [ messages, setMessages] = useState<Array | []>([]);
   const username = 'test';
 
   /**
@@ -18,7 +18,7 @@ const Chat = ():JSX.Element => {
    * @param {string} username
    * @return {Promise<void>}
    */
-  async function sendMessage(username:string, message:String): Promise<void> {
+  async function sendMessage(username:string, message:string): Promise<void> {
     await socket.emit('chat message', {user: username, message});
   }
   // get the messages from the server

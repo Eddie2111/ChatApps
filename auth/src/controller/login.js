@@ -24,7 +24,7 @@ async function login(req, res) {
         return res.status(200).json({ errors: 'Invalid password.' });
     }
     const token = sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1d' });
-    //return 
+    //return
     res.cookie('token', token, { path: '/', secure: true, httpOnly: true, expires: new Date(Date.now() + 900000) });
     res.status(200).json({ token: token });
 }

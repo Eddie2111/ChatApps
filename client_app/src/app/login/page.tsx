@@ -1,7 +1,8 @@
 'use client';
-import dynamic from 'next/dynamic';
+//import dynamic from 'next/dynamic';
 import React from 'react';
-const LoginForm = dynamic(() => import('@/components/Forms/LoginForm'), { ssr: true });
+//const LoginForm = dynamic(() => import('@/components/Forms/LoginForm'), { ssr: true });
+import LoginForm from './form';
 export default function Login(){
     return(
         <center>
