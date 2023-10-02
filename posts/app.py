@@ -34,7 +34,7 @@ app.add_middleware(
 """
 @app.on_event("startup")
 async def startup():
-    Redis = redis.from_url("redis://localhost:6379", encoding="utf-8", decode_responses=True)
+    Redis = redis.from_url("redis://localhost:5800", encoding="utf-8", decode_responses=True)
     mongoDB = connect_mongo()
     await FastAPILimiter.init(Redis)
 

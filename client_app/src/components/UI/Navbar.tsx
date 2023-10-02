@@ -4,6 +4,8 @@ import { useRouter,usePathname } from 'next/navigation'
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenuItem, NavbarMenu, NavbarMenuToggle, Link as NextLink} from "@nextui-org/react";
 import {ThemeSwitcher} from './ThemeSwitcher';
 import {useAuth} from '@/context/TestContext'
+import { UserButton } from "@clerk/nextjs";
+
 export const NextNavbar = ():JSX.Element => {
   const {getUser} = useAuth();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -93,9 +95,12 @@ export const NextNavbar = ():JSX.Element => {
           {
             user?.id ? <NextLink href="/profile">Profile</NextLink> : <NextLink href="/signup">Sign up</NextLink>
           }
-          
+        </NavbarItem>
+        <NavbarItem>
+        <div className='flex flex-row'>
             <ThemeSwitcher/>
-          
+            <UserButton />
+          </div>
         </NavbarItem>
       </NavbarContent>
 

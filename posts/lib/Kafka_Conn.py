@@ -17,12 +17,12 @@ class SingletonKafka:
             cls.consumer = KafkaConsumer(bootstrap_servers=['localhost:9092'], auto_offset_reset='earliest', value_deserializer=lambda x: loads(x.decode('utf-8')))
             cls.consumer.subscribe(['status'])
         return cls._instance
-    
+
     def get_producer(self):
         return self.producer
-    
+
     def get_consumer(self):
         return self.consumer
-    
+
 def connect_kafka_producer():
     return SingletonKafka().get_producer()
