@@ -20,6 +20,5 @@
         // "no-invalid-this": "off",
         // "no-prototype-builtins": "off",
         // "no-async-promise-executor": "off"
-
     }
 }

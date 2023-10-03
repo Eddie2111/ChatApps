@@ -1,9 +1,20 @@
 'use client';
 import React from 'react';
 import axios from 'axios';
+import {useRouter} from 'next/navigation';
 import {Card, Button, Input} from '@nextui-org/react';
 import {EyeFilledIcon} from '@/components/Icons/EyeFilledIcon';
 import {EyeSlashFilledIcon} from '@/components/Icons/EyeSlashFilledIcon';
+import {ToastContainer, toast} from 'react-toastify';
+import { SignUp } from "@clerk/nextjs";
+import 'react-toastify/dist/ReactToastify.css';
+
+interface IResponseData{
+    data: {
+        message?: string;
+        errors?: string;
+    }
+}
 
 /**
  * @name LoginForm
@@ -14,22 +25,39 @@ import {EyeSlashFilledIcon} from '@/components/Icons/EyeSlashFilledIcon';
 export default function LoginForm(){
     const [isVisible, setIsVisible] = React.useState(false);
     const toggleVisibility = () => setIsVisible(!isVisible);
-    const socialMedia = [1,2,3,4,5,6]; // removable for social media auth
+    const router = useRouter();
+    function call(message:string):Promise<void> {
+        toast(message,
+            {
+                position: toast.POSITION.BOTTOM_CENTER,
+                autoClose: 2000,
+                progressClassName: 'display-none',
+                draggablePercent: 60
+            }
+        )
+    }
 
     async function postdata(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        console.log(event.currentTarget.email.value);
-        const response = await axios.post('http://localhost:3100/login', {
+        const response = await axios.post<IResponseData>('http://localhost:3100/login', {
             email: event.currentTarget.email.value,
             password: event.currentTarget.password.value
         }, { withCredentials: true });
-        console.log(response);
+        console.log(response.data.message);
+        call(response.data.errors || response.data.message)
+        if(response.data.message === 'Login Successful'){
+            router.push('/');
+        }
     }
     //postdata();
 
     return(
+        <>
+        <SignUp path="/signup" routing="path" />
         <center>
+
                 <Card className='w-[330px] my-1 h-[300px]'>
+                    <p className='text-2xl mt-4'>Log Into Your Account</p>
                     <form onSubmit={postdata} className='flex flex-col my-auto px-2'>
                         <Input
                             label="Email"
@@ -43,6 +71,7 @@ export default function LoginForm(){
                             label='Password'
                             variant='bordered'
                             placeholder='Enter your password'
+                            name='password'
                             endContent={
                                 <button className='focus:outline-none' type='button' onClick={toggleVisibility}>
                                 {isVisible ? (
@@ -55,17 +84,12 @@ export default function LoginForm(){
                             type={isVisible ? 'text' : 'password'}
                             className='w-full my-1'
                         />
-                        <Button type='submit' color="success" variant="ghost">Login</Button>
-                        <p>Or</p>
-                        <div className='flex flex-row'>
-                        {
-                            socialMedia.map((item) => (
-                                <button key={item} className='bg-[#3b5998] w-[50px] h-[50px] ml-1 my-2'>item</button>
-                            ))
-                        }
-                        </div>
+                        <Button type='submit' color="success" variant="ghost" className='my-2'>Login</Button>
+                        <Button onClick={()=>router.push('/signup')} color="primary" variant="ghost">Create Account</Button>
                     </form>
                 </Card>
+                <ToastContainer limit={3} />
         </center>
+        </>
     )
 }

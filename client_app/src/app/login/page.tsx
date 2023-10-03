@@ -13,7 +13,6 @@ export const metadata: Metadata = {
 export default function Login(){
     return(
         <center>
-            <h1>Login</h1>
             <LoginForm/>
         </center>
     )

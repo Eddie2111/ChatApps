@@ -13,7 +13,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: {
 		template: '%s | ERiS',
-		default: '%s | Welcome to ERiS',
+		default: 'Home | Welcome to ERiS',
 	},
   description: {
     template: '%s',

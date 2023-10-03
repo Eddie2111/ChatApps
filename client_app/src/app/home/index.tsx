@@ -1,7 +1,6 @@
 'use client';
 import React from "react";
 import { Spinner } from "@nextui-org/react";
-import CreatePost from '@/components/Forms/CreatePosts';
 import Posts from '@/components/Cards/Posts';
 //import { ThemeSwitcher } from '@/components/Buttons/ThemeSwitcher';
 
@@ -32,7 +31,6 @@ export default function Home() {
 
   return (
     <center>
-      <CreatePost />
       {posts.length === 0 ? (
         <Spinner size='lg' className='my-5' />
       ) : (

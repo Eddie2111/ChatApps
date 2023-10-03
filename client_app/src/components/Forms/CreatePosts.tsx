@@ -1,24 +1,23 @@
 'use client';
 import React from "react";
 import axios from 'axios';
-import {Button, Card, CardHeader, CardBody, CardFooter, Divider, Link, Image, Textarea} from "@nextui-org/react";
+import {Button, Card, CardHeader, CardBody, CardFooter, Divider, Image, Textarea} from "@nextui-org/react";
 import Mood from '@/data/SelectOptions.json';
 import {FaTelegramPlane} from "react-icons/fa";
-//import {postTest} from '@/app/api/handle';
+
 /**
- * CreatePost component
- * @component CreatePost, Form
- * @return {JSX.Element} CreatePost
+ * Card Component
+ * @component Card
+ * @return {JSX.Element} Card
  */
-export default function CreatePost(): JSX.Element {
-  return (
+export function CreateCard(): JSX.Element{
+  return(
     <Card className="max-w-[400px]">
       <CardHeader className="flex gap-3">
         <Image
           alt="nextui logo" radius="sm"
           height={40} width={40}
-          src="https://avatars.githubusercontent.com/u/86160567?s=200&v=4"
-        />
+          src="https://avatars.githubusercontent.com/u/86160567?s=200&v=4" />
         <div className="flex flex-col">
           <p className="text-md">User name</p>
           <p className="text-small text-default-500">Create a post</p>
@@ -30,18 +29,10 @@ export default function CreatePost(): JSX.Element {
       </CardBody>
       <Divider/>
       <CardFooter>
-        <Link
-          isExternal
-          showAnchorIcon
-          href="https://github.com/nextui-org/nextui"
-        >
-          Visit source code on GitHub.
-        </Link>
       </CardFooter>
     </Card>
-  );
+  )
 }
-
 /**
  * Form component
  * @component Form
@@ -103,5 +94,38 @@ function Form(): JSX.Element{
                 Post
             </Button>
         </form>
+    )
+}
+/**
+ * WelcomePoster component
+ * @component WelcomePoster
+ * @return {JSX.Element} Card : WelcomePoster
+ */
+export function WelcomePoster(): JSX.Element{
+    return(
+      <Card className="max-w-[400px]">
+      <CardHeader className="flex gap-3 text-center justify-center">
+        <p className="text-md">Join ERiS To Create A Post</p>
+      </CardHeader>
+      <Divider/>
+      <CardBody>
+            <div className='flex flex-col justify-center items-center'>
+                <p className='text-lg'>Take a look on trending posts</p>
+                <p className='text-sm'>Join to make a post</p>
+                <br/>
+                <div className='flex flex-row justify-between'>
+                  <Button className='w-[120px] hover:bg-green-300 duration-300 mx-4' color="success">
+                      Join ERiS
+                  </Button>
+                  <Button className='w-[120px] hover:bg-blue-300 duration-300 mx-4' color="primary">
+                      Login
+                  </Button>
+                </div>
+            </div>
+      </CardBody>
+      <Divider/>
+      <CardFooter>
+      </CardFooter>
+    </Card>
     )
 }
