@@ -2,15 +2,15 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const cookieparser = require('cookie-parser');
-const { corsOptions } = require('./config/corsOptions');
-const { Limiter } = require('./config/rateLimit');
+const {corsOptions} = require('./config/corsOptions');
+const {Limiter} = require('./config/rateLimit');
 
 // middleware
 app.use(cors(corsOptions));
 app.use(cookieparser());
 require('dotenv').config();
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({extended: true}));
 app.use(Limiter);
 
 // importing routes
@@ -29,6 +29,5 @@ app.use('/signout', signout);
 app.use('/update', update);
 app.use('/authcheck', authcheck);
 
-
 const port = process.env.PORT || 3000;
-app.listen(port, ()=> console.log(`Server running on port ${port}`));
+app.listen(port, () => console.log(`Server running on port ${port}`));

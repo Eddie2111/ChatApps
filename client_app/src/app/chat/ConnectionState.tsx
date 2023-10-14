@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'; // Import PropTypes
  * @param {boolean} props.isConnected Indicates whether the socket is connected.
  * @return {JSX} Rendered component.
  */
-export function ConnectionState({isConnected}:boolean):JSX.Element {
+export function ConnectionState({isConnected}: boolean): JSX.Element {
   const statusTest = isConnected ? 'Connected' : 'Disconnected';
   return <p>Status: {'' + statusTest}</p>;
 }

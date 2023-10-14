@@ -1,19 +1,23 @@
 const express = require('express');
-// eslint-disable-next-line new-cap
+
 const router = express.Router();
 const {getProfileByID} = require('../../controller/profileGetting');
 router
     .route('/')
-    .get((req, res)=>{
+    .get(async (req, res)=>{
+        const result = await getProfileByID({id: req.query.id});
+        console.log(req.cookies || 'no cookies');
         res.json({
-            status: 405,
-            message: 'Method not allowed',
+            status: 200,
+            result,
+            message: 'success',
         });
     })
-    
+
     .post(async (req, res)=>{
         console.log(req.body.id);
-        const result = await getProfileByID(req.body.id);
+        const result = await getProfileByID({id: req.body.id});
+        console.log(req.cookies || 'no cookies');
         if (result) {
             res.json({
                 status: 200,

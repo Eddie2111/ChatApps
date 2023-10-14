@@ -1,16 +1,11 @@
-import Top from './top';
-import Intro from './intro';
-import Handler from './handler';
-export default function Profile(): JSX.Element{
-    async function getData(){
-        const response = await Handler();
-        return response;
-    }
-    const data = getData();
-    return(
-        <>
-        <Top/>
-        <Intro/>
-        </>
-    )
+import type {Metadata, NextPage} from 'next';
+import Wrapper from './wrapper';
+
+export const metadata: Metadata = {
+  title: {default: 'Profile'},
+  description: 'Welcome to ERiS',
+};
+
+export default function Profile(): NextPage {
+  return <Wrapper />;
 }

@@ -1,10 +1,9 @@
-import type { NextPage } from 'next';
-import type { Metadata } from 'next';
-//import dynamic from 'next/dynamic';
-import Home from './home/index';
-import {CreateCard, WelcomePoster} from '@/components/Forms/CreatePosts';
-import handler from './home/handler';
-// const Home = dynamic(() => import('./home/index'), { ssr: false });
+import type {Metadata, NextPage} from 'next';
+
+import dynamic from 'next/dynamic';
+
+const Home = dynamic(() => import('./home/index'), {ssr: false});
+const Header = dynamic(() => import('./home/header'), {ssr: false});
 
 export const metadata: Metadata = {
   title: {
@@ -14,19 +13,10 @@ export const metadata: Metadata = {
 };
 
 export default function Index(): NextPage {
-  async function output(){
-    const res = await handler();
-    return res;
-  }
-  const token:string = output();
-  return(
+  return (
     <center>
-  {token ? (
-    <CreateCard/>
-    ) : (
-      <WelcomePoster/>
-    )}
+      <Header />
       <Home />
     </center>
-  )
+  );
 }

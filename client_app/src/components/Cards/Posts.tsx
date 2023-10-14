@@ -1,14 +1,14 @@
 'use client';
 import axios from 'axios';
-import React from "react";
-import {Button, Card, CardHeader, CardBody, CardFooter, Divider, Image} from "@nextui-org/react";
+import React from 'react';
+import {Button, Card, CardHeader, CardBody, CardFooter, Divider, Image} from '@nextui-org/react';
 
-interface PostProps{
-    userId: string;
-    post: string;
-    feeling: string;
-    image: string;
-    file: string;
+interface PostProps {
+  userId: string;
+  post: string;
+  feeling: string;
+  image?: string;
+  file: string;
 }
 /**
  * this is posts card
@@ -17,41 +17,44 @@ interface PostProps{
  * @param data: {userId: string, post: string, feeling: string, image: string, file: string}
  * @returns JSX.Element
  */
-export default function Posts(data:PostProps):JSX.Element {
-  const [imagedata, setImagedata] = React.useState<boolean>(true);
-  React.useEffect(()=>{
-    axios.get('http://localhost:3700/get_any?image=' + data.file)
-      .then(res => {
-        if(res.data === 'no image'){
-          setImagedata(false);
-        }
-        else{
-          setImagedata(true);
-        }
-      })
-      .catch(err => console.log(err));
-  },[data.file])
+export default function Posts(data: PostProps): JSX.Element {
+  const [imagedata, setImagedata] = React.useState<boolean>(false);
+  React.useEffect(() => {
+    const image = data.file;
+    const ext = image.split('.');
+    if (ext[1].length != 0) {
+      axios
+        .get('http://localhost:3700/get_any?image=' + data.file)
+        .then((res) => {
+          if (res.data === 'no image') {
+            setImagedata(false);
+          } else {
+            setImagedata(true);
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [data.file]);
+  console.log(imagedata);
   return (
-    <Card className="max-w-[400px] my-5">
-      <CardHeader className="flex gap-3">
+    <Card className='max-w-[400px] my-5'>
+      <CardHeader className='flex gap-3'>
         <Image
-          alt="nextui logo"
+          alt='nextui logo'
           height={40}
-          radius="sm"
-          src="https://avatars.githubusercontent.com/u/86160567?s=200&v=4"
+          radius='sm'
+          src='https://avatars.githubusercontent.com/u/86160567?s=200&v=4'
           width={40}
         />
-        <div className="flex flex-col">
-          <p className="text-md">{data.userId}</p>
-          <p className="text-small text-default-500">Feeling: {data.feeling}</p>
+        <div className='flex flex-col'>
+          <p className='text-md'>{data.userId}</p>
+          <p className='text-small text-default-500'>Feeling: {data.feeling}</p>
         </div>
       </CardHeader>
-      <Divider/>
+      <Divider />
       <CardBody>
         <p>{data.post}</p>
-        {
-          imagedata === false ? 
-          null : 
+        {imagedata === false ? null : (
           <Image
             alt='posts'
             height='400px'
@@ -59,18 +62,15 @@ export default function Posts(data:PostProps):JSX.Element {
             onLoadingFinish={() => console.log('Image loaded!')}
             onError={() => {
               console.log('Image failed to load.');
-              setImageheight('0px'); // Set image height to 0px when the image fails to load
-              setImagewidth('0px'); // Set image width to 0px when the image fails to load
               setImagedata(''); // Set imagedata to empty when the image fails to load
             }}
             width='400px'
           />
-        }
-          
+        )}
       </CardBody>
-      <Divider/>
+      <Divider />
       <CardFooter>
-        <div className="flex flex-row justify-between items-center text-center">
+        <div className='flex flex-row justify-between items-center text-center'>
           <Button className='mx-3 px-5'>Like</Button>
           <Button className='mx-3 px-5'>Comment</Button>
           <Button className='mx-3 px-5'>Share</Button>

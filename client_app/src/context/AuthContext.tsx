@@ -1,18 +1,25 @@
 'use client';
 // not being used right now
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, {createContext, useContext, useState, ReactNode} from 'react';
+interface IUserProps {
+  id: string;
+  name: string;
+  email: string;
+  image: string;
+}
 
 interface AuthContextType {
-    user: any;
-    login: (userData: User) => void;
-    logout: () => void;
-    getLogin: () => void;
-}
-interface AuthProviderProps {
-    children: ReactNode;
+  user: IUserProps;
+  login: (userData: User) => void;
+  logout: () => void;
+  getLogin: () => void;
 }
 
-const AuthContext = createContext<AuthContextType | any>(undefined);
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+const AuthContext = createContext<AuthContextType>(undefined);
 /**
  * @name AuthProvider
  * @description This is a provider for the authentication
@@ -20,8 +27,7 @@ const AuthContext = createContext<AuthContextType | any>(undefined);
  * @return {JSX.Logic}
  */
 
-export const AuthProvider: React.FC<AuthProviderProps | any> = ({ children }) => {
-
+export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
   /**
    * this function gets a cookie
    * @name getCookie
@@ -30,9 +36,9 @@ export const AuthProvider: React.FC<AuthProviderProps | any> = ({ children }) =>
    * @return {string}
    */
   const getCookie = (name) => {
-    const cookies = document.cookie.split("; ");
+    const cookies = document.cookie.split('; ');
     for (const cookie of cookies) {
-      const [cookieName, cookieValue] = cookie.split("=");
+      const [cookieName, cookieValue] = cookie.split('=');
       if (cookieName === name) {
         return decodeURIComponent(cookieValue);
       }
@@ -48,7 +54,7 @@ export const AuthProvider: React.FC<AuthProviderProps | any> = ({ children }) =>
    * @return {any} null
    */
   const [user, setUser] = useState(() => {
-    const storedUser = getCookie("user");
+    const storedUser = getCookie('user');
     return storedUser ? JSON.parse(storedUser) : null;
   });
 
@@ -60,9 +66,9 @@ export const AuthProvider: React.FC<AuthProviderProps | any> = ({ children }) =>
    * @return {any} null
    * @requires setUser, setCookie
    */
-  const login = (userData:string) => {
+  const login = (userData: string) => {
     setUser(userData);
-    setCookie("user", JSON.stringify(userData), 7); // Expires in 7 days
+    setCookie('user', JSON.stringify(userData), 7); // Expires in 7 days
   };
 
   /**
@@ -72,9 +78,9 @@ export const AuthProvider: React.FC<AuthProviderProps | any> = ({ children }) =>
    * @return {any} null
    * @requires setUser, deleteCookie
    */
-  const logout = ():void => {
+  const logout = (): void => {
     setUser(null);
-    deleteCookie("user");
+    deleteCookie('user');
   };
 
   /**
@@ -86,10 +92,10 @@ export const AuthProvider: React.FC<AuthProviderProps | any> = ({ children }) =>
    * @param {number} days
    * @return {any} null
    */
-  const setCookie = (name:string, value:string, days:number) => {
+  const setCookie = (name: string, value: string, days: number) => {
     const expirationDate = new Date();
     expirationDate.setDate(expirationDate.getDate() + days);
-    const cookieValue = encodeURIComponent(value) + (days ? `; expires=${expirationDate.toUTCString()}` : "");
+    const cookieValue = encodeURIComponent(value) + (days ? `; expires=${expirationDate.toUTCString()}` : '');
     document.cookie = `${name}=${cookieValue}; path=/;`;
   };
 
@@ -100,27 +106,23 @@ export const AuthProvider: React.FC<AuthProviderProps | any> = ({ children }) =>
    * @param {string} name
    * @return {any} null
    * @requires setUser, deleteCookie
-    */
-  const deleteCookie = (name:string) => {
+   */
+  const deleteCookie = (name: string) => {
     document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
   };
 
   // get login
   const getLogin = async () => {
     console.log(user);
-  }
+  };
 
-  return (
-    <AuthContext.Provider value={{ user, login, logout, getLogin }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{user, login, logout, getLogin}}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = (): AuthContextType => {
-    const context = useContext(AuthContext);
-    if (context === undefined) {
-      throw new Error("useAuth must be used within an AuthProvider");
-    }
-    return context;
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
 };

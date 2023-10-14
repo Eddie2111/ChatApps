@@ -1,170 +1,113 @@
 export const schoolsAndCollegesDhaka: Array = [
-  "Type something",
+  'Type something',
 
+  'Dhaka College',
 
-  "Dhaka College",
+  'Viqarunnisa Noon School and College',
 
+  'Notre Dame College Dhaka',
 
-  "Viqarunnisa Noon School and College",
+  'Rajuk Uttara Model College',
 
+  'Dhaka City College',
 
-  "Notre Dame College Dhaka",
+  'Milestone College',
 
+  'Adamjee Cantonment College',
 
-  "Rajuk Uttara Model College",
+  'Holy Cross College Dhaka',
 
+  'Dhaka Residential Model College',
 
-  "Dhaka City College",
-
-
-  "Milestone College",
-
-
-  "Adamjee Cantonment College",
-
-
-  "Holy Cross College Dhaka",
-
-
-  "Dhaka Residential Model College",
-
-
-  "St. Joseph Higher Secondary School",
-
+  'St. Joseph Higher Secondary School',
 
   "St. Gregory's High School",
 
+  'Willes Little Flower School',
 
-  "Willes Little Flower School",
+  'Udayan Higher Secondary School',
 
+  'South City College',
 
-  "Udayan Higher Secondary School",
-
-
-  "South City College",
-
-
-  "Ideal College (Dhanmondi)",
-
+  'Ideal College (Dhanmondi)',
 
   "Central Women's College",
 
-
   "Azimpur Government Girl's School & College",
 
+  'Motijheel Model School & College',
 
-  "Motijheel Model School & College",
+  'Kisholoy Balika Biddaloy O College',
 
+  'Bashir Uddin Ideal School & College',
 
-  "Kisholoy Balika Biddaloy O College",
+  'Pallabi Degree College',
 
+  'Government Bangabandhu College',
 
-  "Bashir Uddin Ideal School & College",
+  'Sabujbagh Government College',
 
+  'Habibullah Bahar College',
 
-  "Pallabi Degree College",
+  'Dakkhin Banasree Model High School & College',
 
+  'Abudharr Ghifari College',
 
-  "Government Bangabandhu College",
+  'Alhaz Mockbul Hossain College',
 
+  'Tejgaon Mohila College',
 
-  "Sabujbagh Government College",
-
-
-  "Habibullah Bahar College",
-
-
-  "Dakkhin Banasree Model High School & College",
-
-
-  "Abudharr Ghifari College",
-
-
-  "Alhaz Mockbul Hossain College",
-
-
-  "Tejgaon Mohila College",
-
-
-  "Uttara United College",
-
+  'Uttara United College',
 
   "Dhaka Women's College",
 
+  'Engineering University School & College',
 
-  "Engineering University School & College",
+  'Dhaka Commerce College',
 
+  'Dhaka Imperial College',
 
-  "Dhaka Commerce College",
+  'Dhaka State College',
 
+  'Dhaka College of Engineering & Technology',
 
-  "Dhaka Imperial College",
+  'Dhaka Polytechnic Institute',
 
+  'Dhaka University Laboratory School & College (DUET)',
 
-  "Dhaka State College",
-
-
-  "Dhaka College of Engineering & Technology",
-
-
-  "Dhaka Polytechnic Institute",
-
-
-  "Dhaka University Laboratory School & College (DUET)",
-
-
-  "Rajuk Uttara Model College",
-
+  'Rajuk Uttara Model College',
 
   "Holy Cross Girls' High School",
 
+  'St. Joseph Higher Secondary School',
 
-  "St. Joseph Higher Secondary School",
+  'Scholastica',
 
+  'Maple Leaf International School',
 
-  "Scholastica",
+  'Sunbeams School',
 
+  'Mastermind School',
 
-  "Maple Leaf International School",
+  'Oxford International School',
 
+  'Bir Shrestha Noor Mohammad Public College',
 
-  "Sunbeams School",
+  'Government Laboratory High School',
 
+  'Bangladesh International School & College (BISC)',
 
-  "Mastermind School",
+  'Cambrian School and College',
 
+  'Oxford Mission High School',
 
-  "Oxford International School",
+  'European Standard School',
 
+  'DPS STS School Dhaka',
 
-  "Bir Shrestha Noor Mohammad Public College",
+  'The Aga Khan School, Dhaka',
 
+  'Manarat Dhaka International School & College',
 
-  "Government Laboratory High School",
-
-
-  "Bangladesh International School & College (BISC)",
-
-
-  "Cambrian School and College",
-
-
-  "Oxford Mission High School",
-
-
-  "European Standard School",
-
-
-  "DPS STS School Dhaka",
-
-
-  "The Aga Khan School, Dhaka",
-
-
-  "Manarat Dhaka International School & College",
-
-
-  "Adamjee Cantonment Public School",
-
+  'Adamjee Cantonment Public School',
 ];
-

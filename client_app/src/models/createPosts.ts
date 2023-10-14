@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import {PrismaClient} from '@prisma/client';
 let prisma: PrismaClient | null = null;
 
 export const getPrismaClient = () => {
@@ -8,13 +8,13 @@ export const getPrismaClient = () => {
   return prisma;
 };
 interface ICreatePost {
-    id: string;
-    userId: any;
-    body: string;
-    mood?: any;
-    image?: string;
+  id: string;
+  userId: string;
+  body: string;
+  mood?: string;
+  image?: string;
 }
-async function CreatePost(data:ICreatePost) {
+async function CreatePost(data: ICreatePost) {
   const prisma = getPrismaClient();
   const post = await prisma.posts.create({
     data: {
@@ -23,29 +23,28 @@ async function CreatePost(data:ICreatePost) {
       body: data.body,
       mood: data.mood || 'Neutral',
       image: data.image,
-    }
-})
-  return post
+    },
+  });
+  return post;
 }
 async function GetAllPostsHome() {
   const prisma = getPrismaClient();
-  const posts = await prisma.posts.findMany({
-  })
-  console.log(posts)
-  return posts
+  const posts = await prisma.posts.findMany({});
+  console.log(posts);
+  return posts;
 }
-async function GetAllPostsProfile(userId:any) {
+async function GetAllPostsProfile(userId: string) {
   const prisma = getPrismaClient();
   const posts = await prisma.posts.findMany({
     where: {
-      userId: userId
+      userId: userId,
     },
-  })
-  return posts
+  });
+  return posts;
 }
 
 // export the functions
-export { CreatePost, GetAllPostsHome, GetAllPostsProfile }
+export {CreatePost, GetAllPostsHome, GetAllPostsProfile};
 // CreatePost()
 //   .then(async () => {
 //     await getPrismaClient.$disconnect()

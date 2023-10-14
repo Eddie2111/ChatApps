@@ -1,16 +1,14 @@
 'use client';
-import React from "react";
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
+import React from 'react';
+import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from '@nextui-org/react';
 
 interface CustomModalProps {
-    name:string,
-    title:string,
-    description:string,
-    action:string,
+  name: string;
+  title: string;
+  description: string;
+  action: string;
 }
-export default function CustomModal(
-    {Options}: CustomModalProps
-    ):JSX.Element {
+export default function CustomModal({Options}: CustomModalProps): JSX.Element {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
   return (
@@ -20,17 +18,15 @@ export default function CustomModal(
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">{Options.title}</ModalHeader>
+              <ModalHeader className='flex flex-col gap-1'>{Options.title}</ModalHeader>
               <ModalBody>
-                <p>
-                  {Options.description}
-                </p>
+                <p>{Options.description}</p>
               </ModalBody>
               <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
+                <Button color='danger' variant='light' onPress={onClose}>
                   Close
                 </Button>
-                <Button color="primary" onPress={onClose}>
+                <Button color='primary' onPress={onClose}>
                   Action
                 </Button>
               </ModalFooter>

@@ -10,12 +10,12 @@ const {login} = require('../controller/login');
  */
 
 router
-.route('/')
-.get((req, res) => {
+  .route('/')
+  .get((req, res) => {
     res.send('Hello World');
-})
-.post((req, res) => {
-    login(req, res)
-})
+  })
+  .post((req, res) => {
+    login(req, res);
+  });
 
 module.exports = router;

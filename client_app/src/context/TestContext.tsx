@@ -1,26 +1,25 @@
 'use client';
-import React, { createContext,useEffect, useContext, useState, ReactNode } from "react";
-import { cookies } from 'next/headers'
+import React, {createContext, useEffect, useContext, /*useState, ReactNode*/} from 'react';
 import {SetUser, GetUser} from './handler';
 const AuthContext = createContext(undefined);
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = ({children}) => {
   const CookieTest = () => {
-    useEffect(()=>{
+    useEffect(() => {
       Handler(); // should be called in login
-    },[])
+    }, []);
   };
-  const Login = async() => {
-      await SetUser();
+  const Login = async () => {
+    await SetUser();
   };
-  const getUser = async() => {
+  const getUser = async () => {
     const userData = await GetUser();
     return userData;
   };
-  const LogOut = async() => {
+  const LogOut = async () => {
     // !IMPORTANT ########  !!not implemented!! ####### !IMPORTANT
     //await Logout();
-  }
+  };
   /*
   const [user, setUser] = useState(() => {
     const storedUser = getCookie("user");
@@ -43,10 +42,6 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
   */
-  return (
-    <AuthContext.Provider value={{ CookieTest, Login, getUser, LogOut }}>
-      {children}
-    </AuthContext.Provider>
-  );
-}
+  return <AuthContext.Provider value={{CookieTest, Login, getUser, LogOut}}>{children}</AuthContext.Provider>;
+};
 export const useAuth = () => useContext(AuthContext);

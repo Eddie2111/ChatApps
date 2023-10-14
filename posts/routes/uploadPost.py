@@ -1,7 +1,8 @@
 import threading
 import requests
 from datetime import datetime
-from fastapi import APIRouter, Depends, Request, UploadFile, Form
+from typing import Optional  # Import Optional
+from fastapi import APIRouter, Depends, Request, UploadFile, Form, File
 from fastapi_limiter.depends import RateLimiter
 from lib.Mongo_Conn import connect_mongo
 from controller.statuspost import user_status_post
@@ -21,11 +22,11 @@ async def root()->dict:
 @app.post("/testing/post", dependencies=[Depends(RateLimiter(times=1, seconds=5))])
 async def root(
     request: Request,
-    file: UploadFile = None,
+    file: UploadFile = File(None),
     post: str = Form(...),
     feeling: str = Form(...),
 ):
-    threading.Thread(target=await PostedDataPush(file, post, feeling, request))
+    threading.Thread(target=await PostedDataPush(file, post, feeling, request)) # stores file in the cdn
     return {
         "message": "post created successfully",
         "method": "POST",

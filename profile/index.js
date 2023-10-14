@@ -30,7 +30,7 @@ app.use(express.json());
 const profileInsert = require('./routes/profiles/profileInsert');
 const profileGet = require('./routes/profiles/profileGet');
 app.use('/profile/insert', profileInsert);
-app.use('profile/get', profileGet);
+app.use('/profile/get', profileGet);
 
 
 app.listen(port, ()=>{

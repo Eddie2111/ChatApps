@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 
 router
-.route('/')
-.get((req, res) => {
+  .route('/')
+  .get((req, res) => {
     res.send('Hello World');
-})
-.post((req, res) => {
+  })
+  .post((req, res) => {
     res.send('Hello World');
-})
+  });
 
 module.exports = router;

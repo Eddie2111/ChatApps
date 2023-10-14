@@ -1,5 +1,5 @@
 'use strict';
-
+const {v4} = require('uuid');
 const profileModel = require('../model/profileSchema');
 /**
  * @param {Object} data
@@ -7,7 +7,7 @@ const profileModel = require('../model/profileSchema');
  */
 async function Insertion(data) {
     const dataset = {
-        id: data.id, // required
+        id: v4(), // required
         name: data.name, // required
         dob: data.dob || '',
         about: data.about || '',
