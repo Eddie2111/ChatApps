@@ -1,9 +1,9 @@
-'use strict';
-const client = require('../lib/elasticSearch');
-const Profile = require('../model/profileSchema');
-const {v4: uuidv4} = require('uuid');
-const {validate} = require('uuid');
-const {ObjectId} = require('mongodb');
+'use strict'
+const client = require('../lib/elasticSearch')
+const Profile = require('../model/profileSchema')
+const { v4: uuidv4 } = require('uuid')
+const { validate } = require('uuid')
+const { ObjectId } = require('mongodb')
 
 /**
  * @function getProfileByID
@@ -13,14 +13,14 @@ const {ObjectId} = require('mongodb');
  * @param {String} data.dob
  * @return {Object} profile
  */
-async function getProfileByID(data) { // single profile
-    const {id} = data;
-    const profile = await Profile.findOne({id: id});
-    if (profile) {
-        return profile;
-    } else {
-        return null;
-    }
+async function getProfileByID (data) { // single profile
+  const { id } = data
+  const profile = await Profile.findOne({ id })
+  if (profile) {
+    return profile
+  } else {
+    return null
+  }
 }
 
 /**
@@ -31,23 +31,23 @@ async function getProfileByID(data) { // single profile
  * @param {String} data.dob
  * @return {Object} profile
  */
-async function getProfileByMultple(data) {
-    // getting multiple profiles using elasticsearch
-    const {ids} = data;
-    const profiles = await client.mget({
-        index: 'profiles',
-        body: {
-            ids: ids,
-        },
-    });
-    if (profiles) {
-        return profiles;
+async function getProfileByMultple (data) {
+  // getting multiple profiles using elasticsearch
+  const { ids } = data
+  const profiles = await client.mget({
+    index: 'profiles',
+    body: {
+      ids
     }
-    return null;
+  })
+  if (profiles) {
+    return profiles
+  }
+  return null
 };
 
 module.exports = {
-    getProfileByID,
-    getProfileByMultple,
-};
+  getProfileByID,
+  getProfileByMultple
+}
 // Path: profile/controller/profileInserting.js

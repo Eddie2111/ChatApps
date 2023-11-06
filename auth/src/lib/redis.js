@@ -1,8 +1,8 @@
-const redis = require('ioredis');
+const redis = require('ioredis')
 
-let redisClient = null;
+let redisClient = null
 
-function createRedisClient() {
+function createRedisClient () {
   if (!redisClient) {
     redisClient = new redis({
       host: process.env.REDIS_HOST,
@@ -11,22 +11,22 @@ function createRedisClient() {
       password: process.env.REDIS_PASSWORD,
       retryStrategy: (times) => {
         // Reconnect after 2 seconds, then increase the delay exponentially
-        return Math.min(times * 2000, 30000); // Max delay 30 seconds
-      },
-    });
+        return Math.min(times * 2000, 30000) // Max delay 30 seconds
+      }
+    })
 
     redisClient.on('connect', () => {
-      console.log('Redis client connected');
-    });
+      console.log('Redis client connected')
+    })
 
     redisClient.on('error', (error) => {
-      console.error(error);
-    });
+      console.error(error)
+    })
   }
 
-  return redisClient;
+  return redisClient
 }
 
 module.exports = {
-  getRedisClient: createRedisClient,
-};
+  getRedisClient: createRedisClient
+}

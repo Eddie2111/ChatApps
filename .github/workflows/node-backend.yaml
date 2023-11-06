@@ -21,10 +21,10 @@ jobs:
 
     - name: Install dependencies
       run: |
-        cd chat
+        cd backend
         npm install
 
     - name: Run tests
       run: |
-        cd chat
+        cd backend
         npm run lint

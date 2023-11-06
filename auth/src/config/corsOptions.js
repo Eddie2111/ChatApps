@@ -5,6 +5,6 @@ const corsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
   maxAge: 36000,
-  origin: true,
-};
-module.exports = {corsOptions};
+  origin: true
+}
+module.exports = { corsOptions }
