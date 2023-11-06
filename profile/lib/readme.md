@@ -1,0 +1,1 @@
+docker run --name elasticsearch --net testnetwork -p 5200:5200 -it -m 2.5GB elasticsearch:8.9.2

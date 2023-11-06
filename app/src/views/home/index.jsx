@@ -4,6 +4,7 @@ import { Button } from "@nextui-org/react";
 import Notifications from "../../components/notification";
 import UserPost from '../../components/posts/userpost';
 import CreatePost from '../../components/posts/createpost';
+
 export default function Home() {
   const { user, login, logout } = useAuth();
   const testArray = [1,2,4,6,7,9,41,42,2,865];
