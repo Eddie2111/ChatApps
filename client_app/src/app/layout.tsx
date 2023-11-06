@@ -3,11 +3,12 @@ import type {Metadata} from 'next';
 import {Providers} from './providers';
 import {Inter} from 'next/font/google';
 import {ClerkProvider} from '@clerk/nextjs';
-// If loading a variable font, you don't need to specify the font weight
+
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
 });
+
 export const metadata: Metadata = {
   title: {
     template: '%s | ERiS',
@@ -32,4 +33,3 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
     </html>
   );
 }
-/**      <body className={inter.className}>*/

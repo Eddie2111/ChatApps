@@ -1,0 +1,30 @@
+name: Chat Service Test (Node.js)
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 20
+
+    - name: Install dependencies
+      run: |
+        cd chat
+        npm install
+
+    - name: Run tests
+      run: |
+        cd chat
+        npm run lint

@@ -1,13 +1,13 @@
 // app/providers.tsx
 'use client';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 import {NextUIProvider} from '@nextui-org/react';
 import {ThemeProvider as NextThemesProvider} from 'next-themes';
 import {AuthProvider} from '../context/TestContext';
-// import {AppProgressBar as ProgressBar} from 'next-nprogress-bar';
-// import {NextNavbar} from '@/components/UI/Navbar';
-const NextNavbar = dynamic(() => import('@/components/UI/Navbar').then((mod) => mod.NextNavbar) /**as any*/, {ssr: false});
-const ProgressBar = dynamic(() => import('next-nprogress-bar').then((mod) => mod.AppProgressBar) /**as any*/, {ssr: false});
+import {AppProgressBar as ProgressBar} from 'next-nprogress-bar';
+import {NextNavbar} from '@/components/UI/Navbar';
+// const NextNavbar = dynamic(() => import('@/components/UI/Navbar').then((mod) => mod.NextNavbar) /**as any*/, {ssr: false});
+// const ProgressBar = dynamic(() => import('next-nprogress-bar').then((mod) => mod.AppProgressBar) /**as any*/, {ssr: false});
 import {Footer} from '@/components/UI/Footer';
 
 export function Providers({children}: {children: React.ReactNode}) {

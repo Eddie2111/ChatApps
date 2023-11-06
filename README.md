@@ -11,8 +11,21 @@
 - post upload system
 - post preview system + images
 
+## QA tests follow up
+
+- change the auth token checking strategy to direct port token checking
+- fix userdata of profiles page
+- application is 60% client side with faulty structures
+- build is corrupted, fix all data types (least priority)
+- avoid JSDocs, not necessary.
+- posts working perfectly for loadups, extend to pushdowns
+- client_app has too many updates, app is no longer functional against backend systems
+
 ## Under progress
 
+- chatting system with profiles
+- see other profiles existing
+- profile search options
 - profile and profile system with context
 - one command system up script *****
 

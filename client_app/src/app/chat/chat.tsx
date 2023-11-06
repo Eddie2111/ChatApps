@@ -7,9 +7,13 @@ import {socket} from './socket';
  * This is a chat component
  * @return {JSX.Element}
  */
+interface IMessageProps{
+  user: string;
+  message: string;
+}
 const Chat = (): JSX.Element => {
   const [message, setMessage] = useState<string>('');
-  const [messages, setMessages] = useState<Array | []>([]);
+  const [messages, setMessages] = useState<IMessageProps>([]);
   const username = 'test';
 
   /**
