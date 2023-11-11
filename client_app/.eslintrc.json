@@ -3,7 +3,7 @@
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended"
   ]
-  //,
+  // ,
   // "plugins": ["@typescript-eslint"],
   // "rules": {
   //   "indent": ["error", "tab"], // Check for single tabs
@@ -15,8 +15,8 @@
   //       "allowExpressions": true
   //     }
   //   ], // Require return types for functions
-  //   "jsdoc/require-param-description": "error", // Require @param descriptions in JSDoc comments
-  //   "jsdoc/require-returns-description": "error", // Require @returns description in JSDoc comments
+  //   // "jsdoc/require-param-description": "error", // Require @param descriptions in JSDoc comments
+  //   // "jsdoc/require-returns-description": "error", // Require @returns description in JSDoc comments
   //   "quotes": ["error", "single"], // Enforce single quotes
   //   "quote-props": ["error", "as-needed"] // Enforce quotes around object literal property names when needed
   // },

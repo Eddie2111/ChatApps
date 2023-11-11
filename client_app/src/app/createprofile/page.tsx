@@ -7,10 +7,10 @@ interface ServerSideProps {
 }
 
 export default function CreateProfile() {
-  async function GetCookieData() {
-    const response = await GetData<ServerSideProps | ''>();
-    return response;
-  }
-  const maindata = GetCookieData();
-  return <Form dataset={maindata} />;
+	async function GetCookieData() {
+		const response = await GetData<ServerSideProps | ''>();
+		return response;
+	}
+	const maindata = GetCookieData();
+	return <Form dataset={maindata} />;
 }

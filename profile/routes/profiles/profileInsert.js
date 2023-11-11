@@ -14,16 +14,18 @@ router
   .post(async (req, res) => {
     console.log(req.body)
     const data = req.body
-    const result = await profileInsertion(data)
-    if (result) {
+    try {
+      const result = await profileInsertion(data)
       res.json({
         status: 200,
-        message: 'Profile inserted successfully'
+        message: 'Profile inserted successfully',
+        data: result
       })
-    } else {
+    } catch (err) {
       res.json({
-        status: 500,
-        message: 'Internal server error'
+        status: 200,
+        message: 'Profile insertion failed',
+        error: err
       })
     }
   })

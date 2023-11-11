@@ -15,7 +15,7 @@ const port = process.env.PORT || 3200
 app.use(cors(corsOptions))
 app.use(rateLimiter)
 require('dotenv').config()
-
+const dateTime = new Date().toLocaleString()
 io.on('connection', (socket) => {
   console.log('a user connected')
 
@@ -31,7 +31,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('chat message', (msg) => {
-    console.log(msg.user, ' said ', msg.message)
+console.log(msg.user, ' said ', msg.message, '@', dateTime.toLocaleString())
     io.emit('chat message', msg)
   })
 

@@ -2,6 +2,7 @@ const express = require('express')
 
 const router = express.Router()
 const { getProfileByID } = require('../../controller/profileGetting')
+
 router
   .route('/')
   .get(async (req, res) => {

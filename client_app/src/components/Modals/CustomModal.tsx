@@ -9,31 +9,31 @@ interface CustomModalProps {
   action: string;
 }
 export default function CustomModal({Options}: CustomModalProps): JSX.Element {
-  const {isOpen, onOpen, onOpenChange} = useDisclosure();
+	const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
-  return (
-    <>
-      <Button onPress={onOpen}>{Options.name}</Button>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={false}>
-        <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader className='flex flex-col gap-1'>{Options.title}</ModalHeader>
-              <ModalBody>
-                <p>{Options.description}</p>
-              </ModalBody>
-              <ModalFooter>
-                <Button color='danger' variant='light' onPress={onClose}>
+	return (
+		<>
+			<Button onPress={onOpen}>{Options.name}</Button>
+			<Modal isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={false}>
+				<ModalContent>
+					{(onClose) => (
+						<>
+							<ModalHeader className='flex flex-col gap-1'>{Options.title}</ModalHeader>
+							<ModalBody>
+								<p>{Options.description}</p>
+							</ModalBody>
+							<ModalFooter>
+								<Button color='danger' variant='light' onPress={onClose}>
                   Close
-                </Button>
-                <Button color='primary' onPress={onClose}>
+								</Button>
+								<Button color='primary' onPress={onClose}>
                   Action
-                </Button>
-              </ModalFooter>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
-    </>
-  );
+								</Button>
+							</ModalFooter>
+						</>
+					)}
+				</ModalContent>
+			</Modal>
+		</>
+	);
 }

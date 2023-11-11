@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const jwt = require('jsonwebtoken')
-const { AuthCheck } = require('../controller/authCheck')
+// const { AuthCheck } = require('../controller/authCheck')
 const { findUserById } = require('../model/userModel')
 
 /**
@@ -18,7 +18,7 @@ router
   .get((req, res) => {
     // get the token from cookie
     const token = req.cookies.token
-    if (!token) { return res.status(401).send('Access denied. No token provided.') }
+    if (!token) { return res.status(201).send('Access denied. No token provided.') }
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET)
       res.send(decoded)
@@ -28,7 +28,7 @@ router
   })
   .post(async (req, res) => {
     const data = req.cookies.token
-    if (!data) return res.status(401).send('Access denied. No token provided.')
+    if (!data) return res.status(201).send('Access denied. No token provided.')
     try {
       const decoded = jwt.verify(data, process.env.JWT_SECRET)
       const user = await findUserById(decoded.id)

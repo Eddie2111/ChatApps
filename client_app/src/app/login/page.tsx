@@ -5,15 +5,15 @@ import type {metadata} from 'next';
 //import LoginForm from './form';
 
 export const metadata: Metadata = {
-  title: {
-    default: 'Login',
-  },
-  description: 'Join ERiS today',
+	title: {
+		default: 'Login',
+	},
+	description: 'Join ERiS today',
 };
 export default function Login() {
-  return (
-    <center>
-      <LoginForm />
-    </center>
-  );
+	return (
+		<center>
+			<LoginForm />
+		</center>
+	);
 }

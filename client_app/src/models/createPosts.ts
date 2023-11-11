@@ -2,10 +2,10 @@ import {PrismaClient} from '@prisma/client';
 let prisma: PrismaClient | null = null;
 
 export const getPrismaClient = () => {
-  if (!prisma) {
-    prisma = new PrismaClient();
-  }
-  return prisma;
+	if (!prisma) {
+		prisma = new PrismaClient();
+	}
+	return prisma;
 };
 interface ICreatePost {
   id: string;
@@ -15,32 +15,32 @@ interface ICreatePost {
   image?: string;
 }
 async function CreatePost(data: ICreatePost) {
-  const prisma = getPrismaClient();
-  const post = await prisma.posts.create({
-    data: {
-      id: data.id,
-      userId: data.userId,
-      body: data.body,
-      mood: data.mood || 'Neutral',
-      image: data.image,
-    },
-  });
-  return post;
+	const prisma = getPrismaClient();
+	const post = await prisma.posts.create({
+		data: {
+			id: data.id,
+			userId: data.userId,
+			body: data.body,
+			mood: data.mood || 'Neutral',
+			image: data.image,
+		},
+	});
+	return post;
 }
 async function GetAllPostsHome() {
-  const prisma = getPrismaClient();
-  const posts = await prisma.posts.findMany({});
-  console.log(posts);
-  return posts;
+	const prisma = getPrismaClient();
+	const posts = await prisma.posts.findMany({});
+	console.log(posts);
+	return posts;
 }
 async function GetAllPostsProfile(userId: string) {
-  const prisma = getPrismaClient();
-  const posts = await prisma.posts.findMany({
-    where: {
-      userId: userId,
-    },
-  });
-  return posts;
+	const prisma = getPrismaClient();
+	const posts = await prisma.posts.findMany({
+		where: {
+			userId: userId,
+		},
+	});
+	return posts;
 }
 
 // export the functions

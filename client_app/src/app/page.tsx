@@ -6,17 +6,17 @@ const Home = dynamic(() => import('./home/index'), {ssr: false});
 const Header = dynamic(() => import('./home/header'), {ssr: false});
 
 export const metadata: Metadata = {
-  title: {
-    default: 'Home | ERiS',
-  },
-  description: 'Welcome to ERiS',
+	title: {
+		default: 'Home | ERiS',
+	},
+	description: 'Welcome to ERiS',
 };
 
 export default function Index(): NextPage {
-  return (
-    <center>
-      <Header />
-      <Home />
-    </center>
-  );
+	return (
+		<center>
+			<Header />
+			<Home />
+		</center>
+	);
 }

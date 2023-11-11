@@ -12,20 +12,20 @@ const LuSunMoon = dynamic(() => import('react-icons/lu').then((mod) => mod.LuSun
  * @return {JSX.Element}
  */
 export const ThemeSwitcher = () => {
-  const {theme, setTheme} = useTheme();
-  return (
-    <>
-      {theme === 'dark' ? (
-        <Button color='primary' variant='flat' className='mt-[4px] w-2 mx-2' onClick={() => setTheme('light')}>
-          {' '}
-          <LuSunMoon />{' '}
-        </Button>
-      ) : (
-        <Button color='primary' variant='flat' className='mt-[4px] w-2 mx-2' onClick={() => setTheme('dark')}>
-          {' '}
-          <FiMoon />{' '}
-        </Button>
-      )}
-    </>
-  );
+	const {theme, setTheme} = useTheme();
+	return (
+		<>
+			{theme === 'dark' ? (
+				<Button color='primary' variant='flat' className='mt-[4px] w-2 mx-2' onClick={() => setTheme('light')}>
+					{' '}
+					<LuSunMoon />{' '}
+				</Button>
+			) : (
+				<Button color='primary' variant='flat' className='mt-[4px] w-2 mx-2' onClick={() => setTheme('dark')}>
+					{' '}
+					<FiMoon />{' '}
+				</Button>
+			)}
+		</>
+	);
 };

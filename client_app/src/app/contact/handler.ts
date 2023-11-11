@@ -6,9 +6,9 @@ interface IData {
   message: string;
 }
 export default async function Handler(data: IData) {
-  console.log(data);
-  return {
-    message: 'received',
-    status: 200,
-  };
+	console.log(data);
+	return {
+		message: 'received',
+		status: 200,
+	};
 }

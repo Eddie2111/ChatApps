@@ -6,25 +6,25 @@ import {socket} from './socket';
  * @return {JSX} Rendered component.
  */
 export function ConnectionManager() {
-  /**
+	/**
    * Connects to the socket server.
    * @return {void}
    */
-  function connect() {
-    socket.connect();
-  }
-  /**
+	function connect() {
+		socket.connect();
+	}
+	/**
    * Disconnects from the socket server.
    * @return {void}
    */
-  function disconnect() {
-    socket.disconnect();
-  }
+	function disconnect() {
+		socket.disconnect();
+	}
 
-  return (
-    <>
-      <button onClick={connect}>Connect</button>
-      <button onClick={disconnect}>Disconnect</button>
-    </>
-  );
+	return (
+		<>
+			<button onClick={connect}>Connect</button>
+			<button onClick={disconnect}>Disconnect</button>
+		</>
+	);
 }

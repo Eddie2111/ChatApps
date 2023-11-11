@@ -7,16 +7,16 @@ import type {Metadata} from 'next';
  * @return {JSX.Element} Signup
  */
 export const metadata: Metadata = {
-  title: {
-    default: 'Signup',
-  },
-  description: 'Join ERiS today',
+	title: {
+		default: 'Signup',
+	},
+	description: 'Join ERiS today',
 };
 
 export default function Signup(): JSX.Element {
-  return (
-    <>
-      <Form />
-    </>
-  );
+	return (
+		<>
+			<Form />
+		</>
+	);
 }
